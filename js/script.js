@@ -2,28 +2,28 @@
 let shoppingCart = [
     {img:"a",
     name:'clarity',
-    codeproduct:1,
+   codeProduct:1,
     descript: 'd',
     cost:'$'10.000
 },
 {
     img:'a',
     name:'Somos polvo de estrellas',
-    codeproduct:2,
+   codeProduct:2,
     descript: 'd',
     cost:'$'10.000
 },
 {
     img:'a',
     name:'Marte: la próxima frontera',
-    codeproduct:3,
+   codeProduct:3,
     descript: 'd',
     cost:'$'10.000
 },
 {
     img:'a',
     name:'Eclipses, Planeta',
-    codeproduct:4,
+   codeProduct:4,
     descript: 'd',
     cost:'$'10.000
 },
