@@ -2,62 +2,71 @@
 let shoppingCart = [
     {img:"a",
     name:'clarity',
-    codeproduct:'c',
+    codeproduct:1,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'Somos polvo de estrellas',
-    codeproduct:'c',
+    codeproduct:2,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'Marte: la próxima frontera',
-    codeproduct:'c',
+    codeproduct:3,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'Eclipses, Planeta',
-    codeproduct:'c',
+    codeproduct:4,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'Bajo el manto de Urania',
-    codeproduct:'c',
+    codeproduct:5,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'La teoria del todo',
-    codeproduct:'c',
+    codeproduct:6,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'it',
-    codeproduct:'c',
+    codeproduct:7,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'El resplandor',
-    codeproduct:'c',
+    codeproduct:8,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'joyland',
-    codeproduct:'c',
+    codeproduct:9,
     descript: 'd',
-    cost:'e'
-}
-    {img:'a',
+    cost:'$'10.000
+},
+{
+    img:'a',
     name:'cell',
-    codeproduct:'c',
+    codeproduct:10,
     descript: 'd',
-    cost:'e'
+    cost:10.000
 }
 ]
