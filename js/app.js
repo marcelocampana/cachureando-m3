@@ -5,8 +5,7 @@ const productoCard = productsData.map(
 <img src="${product.cover}" class="card-img-top" alt="...">
 <div class="card-body">
   <h5 class="card-title">${product.titleBook}</h5>
-  <p class="card-text">$ ${product.price}</p>
-  
+  <p class="card-text">$ ${product.price}</p> 
   <button onclick="showDetail(${product.codeBook})" class="btn btn-primary">Comprar</button>
 </div>
 </div>`
