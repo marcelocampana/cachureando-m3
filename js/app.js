@@ -1,5 +1,5 @@
 //console.log(productsData);
-const productoCard = productsData.map(
+const productCard = productsData.map(
   (product) =>
     `<div class="card" style="width: 18rem;">
 <img src="${product.cover}" class="card-img-top" alt="...">
@@ -11,9 +11,10 @@ const productoCard = productsData.map(
 </div>`
 );
 
-document.getElementById("app").innerHTML = productoCard;
+document.getElementById("product-grid").innerHTML = productCard;
 
 function showDetail(codeBook) {
+  document.getElementById("product-grid").className = "d-none";
   const productFiltered = productsData.filter(
     (product) => product.codeBook == codeBook
   );
@@ -34,7 +35,7 @@ function showDetail(codeBook) {
 </div>`;
   console.log(productFiltered);
 
-  document.getElementById("app").innerHTML = detailProduct;
+  document.getElementById("product-detail").innerHTML = detailProduct;
 }
 
 //let productsSelected = [];
@@ -65,9 +66,28 @@ function addtoCart(codeBook) {
       `<div>${productSelected[0].queantity * productSelected[0].price}</div>`
   );
 
-  document.getElementById("cart").innerHTML += cart;
+  document.getElementById("product-cart").innerHTML += cart;
 }
 
 function showGridProducts() {
-  document.getElementById("app").innerHTML = productoCard;
+  document.getElementById("product-cart").innerHTML = productCard;
 }
+
+const carrito = ` <h3>Carrito de compra</h3>
+
+
+    <div class="container h-100 py-5">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-10">
+  
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+            <div>
+              <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
+                    class="fas fa-angle-down mt-1"></i></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+document.getElementById("cart").innerHTML = carrito;
