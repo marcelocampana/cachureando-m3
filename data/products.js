@@ -5,25 +5,25 @@ const productsData = [
     codeBook: 1,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    price: "8000",
+    price: "8320",
   },
   {
     cover:
-      "https://images.cdn1.buscalibre.com/fit-in/360x360/24/08/240841f3955af93b943f3a43d035b3ed.jpg",
-    titleBook: "La Inteligencia Emocional",
+      "https://www.planetadelibros.cl/usuaris/libros/fotos/290/m_libros/289767_portada_habitos-atomicos_james-clear_201902211730.jpg",
+    titleBook: "Hábitos Atómicos",
     codeBook: 2,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    price: "12000",
+    price: "12400",
   },
   {
     cover:
       "https://img.buzzfeed.com/buzzfeed-static/static/2020-12/22/20/asset/d501ee3b6aaa/sub-buzz-8285-1608667292-7.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto",
-    titleBook: "La inteligencia emocional",
+    titleBook: "True Love",
     codeBook: 3,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    price: "15000",
+    price: "15200",
   },
   {
     cover:
