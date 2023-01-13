@@ -20,19 +20,22 @@ function showDetail(codeBook) {
   );
 
   const detailProduct = `<div class="row">
-  <div class="col-6">
+  <div class="col-6 d-flex justify-content-center">
 
-    <img src="${productFiltered[0].cover}" alt=" " class="w-100">
+    <img src="${productFiltered[0].cover}" alt=" " class="w-75">
   </div>
   <div class="col-4 m-5">
-    <div>${productFiltered[0].titleBook}</div>
+    <div><h1>${productFiltered[0].titleBook}<hi></div>
     <div>${productFiltered[0].description}</div>
-    <div>$${productFiltered[0].price}</div>
+    <div><h5 class="text-left pt-4 pb-4">$${productFiltered[0].price}<h5></div>
+    <div> <h5 class="pb-4" >Disponibilidad: en stock </h5> </div>
+    <div> <h6> Cantidad </h6> </div>
+
     <input type="number" id="quantity"/>
-    <button type="button" onclick="addtoCart(${productFiltered[0].codeBook})" class="btn btn-primary mt-5">Agregar al carrito</button>
-  </div>
-  <button onclick="showGridProducts()" class="btn btn-primary">Seguir comprando</button>
-</div>`;
+    <button type="button" onclick="addtoCart(${productFiltered[0].codeBook})"class="btn btn-primary mt-5 d-flex justify-content-end">Agregar al carrito</button>
+    <button type="button" onclick="showGridProducts()"class="btn btn-primary mt-5 border-top-4">Seguir comprando</button> </div>
+    </div>
+  `;
   console.log(productFiltered);
 
   document.getElementById("product-detail").innerHTML = detailProduct;
