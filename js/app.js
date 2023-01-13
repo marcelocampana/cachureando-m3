@@ -73,19 +73,23 @@ function addtoCart(codeBook) {
             <div class="col-md-2 col-lg-2 col-xl-2">
               <img
                 src="${productSelected[0].cover}"
-                class="img-fluid rounded-3" alt="${productSelected[0].titleBook}">
+                class="img-fluid rounded-3" alt="${
+                  productSelected[0].titleBook
+                }">
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3">
               <p class="lead fw-normal mb-2">${productSelected[0].title}</p>
          
             </div>
-            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+            <div class="col-md-1 col-lg-1 col-xl-1 d-flex">
               <button class="btn btn-link px-2"
                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                 <i class="fas fa-minus"></i>
               </button>
 
-              <input id="form1" min="0" name="quantity" value="${productSelected[0].quantity}" type="number"
+              <input id="form1" min="0" name="quantity" value="${
+                productSelected[0].quantity
+              }" type="number"
                 class="form-control form-control-sm" />
 
               <button class="btn btn-link px-2"
@@ -93,9 +97,14 @@ function addtoCart(codeBook) {
                 <i class="fas fa-plus"></i>
               </button>
             </div>
-            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+            <div class="col-md-1 col-lg-1 col-xl-1 offset-lg-1">
               <h5 class="mb-0">$ ${productSelected[0].price}</h5>      
-            </div>        
+            </div>  
+             <div class="col-md-1 col-lg-1 col-xl-1 offset-lg-1">
+              <h5 class="mb-0">$ ${
+                productSelected[0].price * productSelected[0].quantity
+              }</h5>      
+            </div>       
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
               <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
             </div>
