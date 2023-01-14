@@ -66,25 +66,43 @@ function displayProductDetail(codeBook) {
 
 /* Injección carrito de compra */
 
+let cartItems = [];
 function addProductToCart(codeBook) {
   showStoreComponent("product-cart");
   const quantity = document.getElementById("quantity").value;
-
   //Agregando al carrito el producto que contiene el codeBook dado
   const productAddedToCart = productsData
     .filter((product) => product.codeBook == codeBook)
     .map((product) => ({
+      codeBook: product.codeBook,
       title: product.titleBook,
       price: product.price,
       quantity,
       cover: product.cover,
     }));
 
+  cartItems.push(productAddedToCart[0]);
+  // crear un funcion
+  function deleteProduct(id) {
+    // identificar array con dato a eliminar
+    // hacer un filter del array para que me gurade todos los registros que sean diferentes al cconsulltado
+    const productDeleted = cartItems.filter(
+      (product) => product.codeBook != id
+    );
+    console.log(productDeleted[0].codeBook);
+
+    const child = document.getElementById("product-cart");
+    child.removeChild(productDeleted[0].codeBook);
+  }
+
+  //mostrar el array resultante.
+  //llamar a la funcion con onclic desde el html
+
   const productCard = ` 
-<div class="h-100" >
+<div class="h-100" id="${productAddedToCart[0].codeBook}">
     <div class="container h-100 py-1">
       <div class="row d-flex justify-content-center align-items-center h-100">            
-        <div class="card rounded-3 ">
+        <div class="card rounded-3">
           <div class="card-body p-4">
             <div class="row d-flex justify-content-between align-items-center">
               <div class="col-1">
@@ -124,11 +142,13 @@ function addProductToCart(codeBook) {
               )}</h5>      
               </div>       
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="#!" class="text-danger fs-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="fs-6" style="width:24px">
+                <button class="text-danger fs-6" onclick="deteleProduct(${
+                  productAddedToCart[0].codeBook
+                });"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="fs-6" style="width:24px">
                     <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375z" />
                    <path fill-rule="evenodd" d="M3.087 9l.54 9.176A3 3 0 006.62 21h10.757a3 3 0 002.995-2.824L20.913 9H3.087zm6.133 2.845a.75.75 0 011.06 0l1.72 1.72 1.72-1.72a.75.75 0 111.06 1.06l-1.72 1.72 1.72 1.72a.75.75 0 11-1.06 1.06L12 15.685l-1.72 1.72a.75.75 0 11-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06z" clip-rule="evenodd" />
                     </svg>
-                </i></a>
+                </i></button>
               </div>
             </div>
           </div>
@@ -137,9 +157,13 @@ function addProductToCart(codeBook) {
     </div>
   </div>
 </div>`;
+
+  console.log("pc", productAddedToCart);
   productAddedToCart.map(
     () => (document.getElementById("product-cart").innerHTML += productCard)
   );
+
+  console.log("ci", cartItems);
 
   /*  const productCardEmpty = `<div style="height:400px" class=text-center>
 <h3>El carrito está vacío</h3></div>`;
