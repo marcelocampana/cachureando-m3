@@ -101,6 +101,8 @@
         function anyadirProductoAlCarrito(evento) {
           // Anyadimos el Nodo a nuestro carrito
           carrito.push(evento.target.getAttribute("marcador"));
+
+          console.log(carrito);
           // Actualizamos el carrito
           renderizarCarrito();
         }
@@ -112,7 +114,9 @@
           // Vaciamos todo el html
           DOMcarrito.textContent = "";
           // Quitamos los duplicados
+
           const carritoSinDuplicados = [...new Set(carrito)];
+
           // Generamos los Nodos a partir de carrito
           carritoSinDuplicados.forEach((item) => {
             // Obtenemos el item que necesitamos de la variable base de datos
