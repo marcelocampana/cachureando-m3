@@ -1,153 +1,289 @@
-/* Injección de Grilla de productos */
-const productCard = productsData
-  .map(
-    (product) =>
-      `<div class="col-6 col-md-3 col-lg-2">
-      <div class="card mb-3 w-100 " style="height: 480px;">
-      <img src="${product.cover}" class="card-img-top" alt="${
-        product.titleBook
-      }" onclick="showStoreComponent('product-detail')">
-      <div class="card-body">
-        <h5 class="card-title">${product.titleBook}</h5>
-        <p class="card-text">$ ${Intl.NumberFormat("es-CL").format(
-          product.price
-        )}</p> 
-        <button onclick="displayProductDetail(${
-          product.codeBook
-        })" class="btn btn-primary">Comprar</button>
-      </div>
-      </div>
-    </div>`
+//Obtener elementos HTML
+const DOMgrid = document.getElementById("product-grid");
+const DOMdetail = document.getElementById("product-detail");
+const DOMcart = document.getElementById("product-cart");
+
+/* ------------GRILLA DE PRODUCTOS----------------------------------- */
+
+function createProductGrid(title, image, price, code) {
+  // Tamaño de las card
+  const wrap = document.createElement("div");
+  wrap.classList.add("col-6", "col-md-3", "col-lg-2");
+
+  //Card de producto
+  const card = document.createElement("div");
+  card.classList.add("card", "mb-3", "w-100");
+  card.setAttribute("id", "card");
+  card.style.height = "480px";
+
+  //Imagen de la card
+  const imageCard = document.createElement("img");
+  imageCard.classList.add("card-img-top", "img-fluid");
+  imageCard.style.maxHeight = "24rem";
+  imageCard.src = image;
+  imageCard.alt = title;
+
+  //Cuerpo de la card
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+
+  //Titulo de la card
+  const cardTitle = document.createElement("h5");
+  cardTitle.classList.add("card-title");
+  cardTitle.innerText = title;
+
+  //Precio de la card
+  const cardPrice = document.createElement("p");
+  cardPrice.classList.add("card-text");
+  cardPrice.innerText = "$" + Intl.NumberFormat("es-CL").format(price);
+
+  //boton de la card
+  const btn = document.createElement("button");
+  btn.classList.add("btn", "btn-primary");
+  btn.setAttribute("onclick", `displayProductDetail(${code})`);
+  btn.innerText = "Comprar";
+
+  //Agregando elementos al DOM
+  DOMgrid.appendChild(wrap);
+  wrap.appendChild(card);
+  card.appendChild(imageCard);
+  card.appendChild(cardBody);
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardPrice);
+  cardBody.appendChild(btn);
+
+  //Mostrando solo elementos dentro del id #product-grid
+  showStoreComponent("product-grid");
+}
+
+const productGrid = productsData.map((product) =>
+  createProductGrid(
+    product.titleBook,
+    product.cover,
+    product.price,
+    product.codeBook
   )
-  .join("");
+);
 
-document.getElementById("product-grid").innerHTML = productCard;
-showStoreComponent("product-grid");
+/* ------------DETALLE DE PRODUCTO----------------------------------- */
 
-/* Injección detalle de productos */
+//Creando componente detalle de producto
+function createProductDetail(code, title, imageUrl, price, description) {
+  //Eliminar todo el contenido
+  DOMdetail.textContent = "";
+  //Div inicial
+  const wrapDetail = document.createElement("div");
+  wrapDetail.classList.add("col-6", "d-flex", "justify-content-center");
+  //Imagen
+  const imageDetail = document.createElement("img");
+  imageDetail.src = imageUrl;
+  imageDetail.alt = title;
+  imageDetail.classList.add("h-75");
+  //Cuerpo
+  const bodyDetail = document.createElement("div");
+  bodyDetail.classList.add("col-4", "mx-5");
+  //Titulo
+  const detailTitle = document.createElement("h1");
+  detailTitle.innerText = title;
+  //Descripcion
+  const detailDescription = document.createElement("div");
+  detailDescription.innerText = description;
+  //Precio
+  const detailPrice = document.createElement("h5");
+  detailPrice.classList.add("text-left", "pt-4", "pb-4");
+  detailPrice.innerText = "$" + Intl.NumberFormat("es-CL").format(price);
+  //Disponibilidad
+  const detailAvailability = document.createElement("h5");
+  detailAvailability.classList.add("pb-4");
+  detailAvailability.innerText = "Disponibilidad: en stock";
+  //input de cantidad
+  const detailQuantityTitle = document.createElement("h6");
+  detailQuantityTitle.innerText = "Cantidad";
+  const detailQuantityInput = document.createElement("input");
+  detailQuantityInput.setAttribute("type", "number");
+  detailQuantityInput.setAttribute("min", "1");
+  detailQuantityInput.setAttribute("value", "1");
+  detailQuantityInput.setAttribute("id", "quantity");
+  //Boton enviar al carrito
+  const detailSendToCartBtn = document.createElement("button");
+  detailSendToCartBtn.classList.add(
+    "btn",
+    "btn-primary",
+    "btn-lg",
+    "mt-3",
+    "d-flex",
+    "justify-content-end"
+  );
+
+  detailSendToCartBtn.setAttribute("onclick", `addProductToCart(${code})`);
+  detailSendToCartBtn.innerText = "Agregar al Carrito";
+  //Boton continuar comprando
+  const detailBtnBack = document.createElement("button");
+  detailBtnBack.setAttribute("type", "button");
+  detailBtnBack.setAttribute("onclick", "showStoreComponent('product-grid')");
+  detailBtnBack.classList.add("btn", "btn-outline-primary", "mt-5");
+  detailBtnBack.innerText = "Continuar comprando";
+
+  //Agregando elementos al DOM
+  DOMdetail.appendChild(wrapDetail);
+  wrapDetail.appendChild(imageDetail);
+  DOMdetail.appendChild(bodyDetail);
+  bodyDetail.appendChild(detailTitle);
+  bodyDetail.appendChild(detailDescription);
+  bodyDetail.appendChild(detailPrice);
+  bodyDetail.appendChild(detailQuantityTitle);
+  bodyDetail.appendChild(detailQuantityInput);
+  bodyDetail.appendChild(detailSendToCartBtn);
+  bodyDetail.appendChild(detailBtnBack);
+}
+
+//mostrar el producto seleccionado
 function displayProductDetail(codeBook) {
-  showStoreComponent("product-detail");
-
-  //Mostrando el producto  seleccionado en la grilla
   const productSelected = productsData.filter(
     (product) => product.codeBook == codeBook
   );
 
-  const productDetail = `<div class="row">
-    <div class="col-6 d-flex justify-content-center">
-      <img src="${productSelected[0].cover}" alt=" " class="h-75">
-    </div>
-    <div class="col-4 mx-5">
-      <div>
-        <h1>${productSelected[0].titleBook}<h1>
-      </div>
-      <div>${productSelected[0].description}</div>
-      <div>
-        <h5 class="text-left pt-4 pb-4">$${Intl.NumberFormat("es-CL").format(
-          productSelected[0].price
-        )}<h5>
-      </div>
-      <div> 
-        <h5 class="pb-4" >Disponibilidad: en stock</h5> 
-      </div>
-      <div>
-        <h6>Cantidad</h6>
-      </div>
-      <input type="number" value="1" min="1" id="quantity"/>
-      <button type="button" onclick="addProductToCart(${
-        productSelected[0].codeBook
-      })" class="btn btn-primary btn-lg mt-3 d-flex justify-content-end">Agregar al carrito</button>
-      <button type="button" onclick="showStoreComponent('product-grid')" class="btn btn-outline-primary mt-5">Seguir comprando</button> 
-      </div>
-    </div>  
-  `;
-  document.getElementById("product-detail").innerHTML = productDetail;
+  createProductDetail(
+    productSelected[0].codeBook,
+    productSelected[0].titleBook,
+    productSelected[0].cover,
+    productSelected[0].price,
+    productSelected[0].description
+  );
+  showStoreComponent("product-detail");
 }
 
-/* Injección carrito de compra */
+/* ------------CARRITO DE COMPRA----------------------------------- */
 
-function addProductToCart(codeBook) {
+function createProductCart(code, title, imageUrl, price, quantity) {
+  const cartWrap = document.createElement("div");
+
+  cartWrap.classList.add("container", "h-100", "py-1");
+
+  //Container de cada producto agregado al carrito(este elemento contiene el #id )
+  const cartContainer = document.createElement("div");
+  cartContainer.setAttribute("id", code);
+  cartContainer.classList.add(
+    "row",
+    "d-flex",
+    "justify-content-center",
+    "align-items-center",
+    "h-100"
+  );
+  //contruyendo la card de cada producto del carrito
+  const cartCard = document.createElement("div");
+  cartCard.classList.add("card", "rounded-3");
+  const cartCardBody = document.createElement("div");
+  cartCardBody.classList.add("card-body", "p-4");
+  const cartCardBodyRow = document.createElement("div");
+  cartCardBodyRow.classList.add(
+    "row",
+    "d-flex",
+    "justify-content-between",
+    "align-items-center"
+  );
+  //Imagen
+  const cartImageCol = document.createElement("div");
+  cartImageCol.classList.add("col-1");
+  const cartImage = document.createElement("img");
+  cartImage.classList.add("img-fluid", "rounded-3");
+  cartImage.src = imageUrl;
+  cartImage.alt = title;
+  //Titulo
+  const cartTitleCol = document.createElement("div");
+  cartTitleCol.classList.add("col-2");
+  const cartTitle = document.createElement("div");
+  cartTitle.classList.add("lead", "fw-normal");
+  cartTitle.innerText = title;
+  //Cantidad
+  const cartQuantityCol = document.createElement("div");
+  cartQuantityCol.classList.add("col-1", "d-flex");
+  const cartQuantity = document.createElement("div");
+  cartQuantity.innerText = quantity;
+  //Precio
+  const cartPriceCol = document.createElement("div");
+  cartPriceCol.classList.add("col-2", "offset-1");
+  const cartPrice = document.createElement("div");
+  cartPrice.classList.add("mb-0");
+  cartPrice.innerText = "$" + Intl.NumberFormat("es-CL").format(price);
+  //Total
+  const cartTotalCol = document.createElement("div");
+  cartTotalCol.classList.add("col-2", "offset-1");
+  const cartTotal = document.createElement("div");
+  cartTotal.classList.add("mb-0");
+  cartTotal.innerText =
+    "$" + Intl.NumberFormat("es-CL").format(price * quantity);
+  const cartBtnDeleteCol = document.createElement("div");
+  //Boton eliminar (Elimina un producto del carrito llamando a la funcion deleteProductFromCard())
+  cartBtnDeleteCol.classList.add(
+    "col-md-1",
+    "col-lg-1",
+    "col-xl-1",
+    "text-end"
+  );
+  const cartBtnDelete = document.createElement("button");
+  cartBtnDelete.setAttribute("onclick", `deleteProductFromCard(${code})`);
+  cartBtnDelete.classList.add(
+    "text-danger",
+    "fs-6",
+    "bg-transparent",
+    "border-0"
+  );
+  cartBtnDelete.innerText = "Eliminar";
+
+  //Agregando elementos al DOM
+  DOMcart.appendChild(cartContainer);
+  cartContainer.appendChild(cartWrap);
+  cartWrap.appendChild(cartCard);
+  cartCard.appendChild(cartCardBody);
+  cartCardBody.appendChild(cartCardBodyRow);
+  cartCardBodyRow.appendChild(cartImageCol);
+  cartImageCol.appendChild(cartImage);
+  cartCardBodyRow.appendChild(cartTitleCol);
+  cartTitleCol.appendChild(cartTitle);
+  cartCardBodyRow.appendChild(cartQuantityCol);
+  cartQuantityCol.appendChild(cartQuantity);
+  cartCardBodyRow.appendChild(cartPriceCol);
+  cartPriceCol.appendChild(cartPrice);
+  cartCardBodyRow.appendChild(cartTotalCol);
+  cartTotalCol.appendChild(cartTotal);
+  cartCardBodyRow.appendChild(cartBtnDeleteCol);
+  cartBtnDeleteCol.appendChild(cartBtnDelete);
   showStoreComponent("product-cart");
+}
+
+//Agregar producto al carrito
+function addProductToCart(codeBook) {
   const quantity = document.getElementById("quantity").value;
 
-  //Agregando al carrito el producto que contiene el codeBook dado
   const productAddedToCart = productsData
     .filter((product) => product.codeBook == codeBook)
     .map((product) => ({
-      title: product.titleBook,
+      codeBook: product.codeBook,
+      titleBook: product.titleBook,
       price: product.price,
       quantity,
       cover: product.cover,
     }));
 
-  const productCard = ` 
-<div class="h-100" >
-    <div class="container h-100 py-1">
-      <div class="row d-flex justify-content-center align-items-center h-100">            
-        <div class="card rounded-3 ">
-          <div class="card-body p-4">
-            <div class="row d-flex justify-content-between align-items-center">
-              <div class="col-1">
-                <img
-                  src="${productAddedToCart[0].cover}"
-                  class="img-fluid rounded-3" alt="${
-                    productAddedToCart[0].titleBook
-                  }">
-              </div>
-              <div class="col-2">
-                <p class="lead fw-normal mb-2">${
-                  productAddedToCart[0].title
-                }</p>
-              </div>
-              <div class="col-2 d-flex">
-                <button class="btn btn-link px-2"
-                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <input  min="1" name="quantity" value="${
-                  productAddedToCart[0].quantity
-                }" type="number"
-                  class="form-control form-control-sm" />
-                <button class="btn btn-link px-2"
-                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                  <i class="fas fa-plus"></i>
-                </button>
-            </div>
-            <div class="col-2 offset-1">
-                <h5 class="mb-0">$ ${Intl.NumberFormat("es-CL").format(
-                  productAddedToCart[0].price
-                )}</h5>      
-            </div>  
-            <div class="col-2 offset-1">
-              <h5 class="mb-0">$ ${Intl.NumberFormat("es-CL").format(
-                productAddedToCart[0].price * productAddedToCart[0].quantity
-              )}</h5>      
-              </div>       
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="#!" class="text-danger fs-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="fs-6" style="width:24px">
-                    <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375z" />
-                   <path fill-rule="evenodd" d="M3.087 9l.54 9.176A3 3 0 006.62 21h10.757a3 3 0 002.995-2.824L20.913 9H3.087zm6.133 2.845a.75.75 0 011.06 0l1.72 1.72 1.72-1.72a.75.75 0 111.06 1.06l-1.72 1.72 1.72 1.72a.75.75 0 11-1.06 1.06L12 15.685l-1.72 1.72a.75.75 0 11-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06z" clip-rule="evenodd" />
-                    </svg>
-                </i></a>
-              </div>
-            </div>
-          </div>
-        </div>     
-      </div>
-    </div>
-  </div>
-</div>`;
-  productAddedToCart.map(
-    () => (document.getElementById("product-cart").innerHTML += productCard)
+  createProductCart(
+    productAddedToCart[0].codeBook,
+    productAddedToCart[0].titleBook,
+    productAddedToCart[0].cover,
+    productAddedToCart[0].price,
+    productAddedToCart[0].quantity
   );
-
-  /*  const productCardEmpty = `<div style="height:400px" class=text-center>
-<h3>El carrito está vacío</h3></div>`;
-    document.getElementById("cart-empty").innerHTML = productCardEmpty; */
 }
 
-/* Funcion para mostrar/ocultar componentes de la tienda (grilla, detalle de productos, carrito de compra) */
+//Eliminar producto del carrito. Esta funcion busca el elemento que contiene el id que es igual al código de producto y elimina su hijo(child) con removeChild
+function deleteProductFromCard(codeBook) {
+  const itemToRemove = document.getElementById(codeBook);
+  DOMcart.removeChild(itemToRemove);
+}
 
+/* ------------FUNCION PARA MOSTRAR/OCULTAR ----------------------------------- */
+
+//Mostrar/ocultar elementos de asociados al id #product-grid, #product-detail o #product-cart
 function showStoreComponent(component) {
   document.getElementById("product-grid").className =
     component === "product-grid" ? "row" : "d-none";
