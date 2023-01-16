@@ -82,7 +82,7 @@ const productsData = [
   {
     cover:
       "https://images.cdn2.buscalibre.com/fit-in/360x360/75/ed/75edb4dded7bedf5021c9e6678011aba.jpg",
-    titleBook: "Marcelo Bielsa: Los 11 Caminos al gol",
+    titleBook: "Los 11 Caminos al gol",
     codeBook: 10,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
