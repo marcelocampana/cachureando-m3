@@ -1,7 +1,10 @@
-//Obtener elementos HTML
+//Variables globales
 const DOMgrid = document.getElementById("product-grid");
 const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
+const DomTotalsArea = document.getElementById("product-cart-totals");
+let arrayCart = [];
+const cartWrap = document.createElement("div");
 
 /* ------------GRILLA DE PRODUCTOS----------------------------------- */
 
@@ -84,6 +87,7 @@ function createProductDetail(code, title, imageUrl, price, description) {
   bodyDetail.classList.add("col-4", "mx-5");
   //Titulo
   const detailTitle = document.createElement("h1");
+  detailTitle.setAttribute("name", code);
   detailTitle.innerText = title;
   //Descripcion
   const detailDescription = document.createElement("div");
@@ -115,7 +119,7 @@ function createProductDetail(code, title, imageUrl, price, description) {
     "justify-content-end"
   );
 
-  detailSendToCartBtn.setAttribute("onclick", `addProductToCart(${code})`);
+  detailSendToCartBtn.setAttribute("onclick", `cartAction(${code},'add' )`);
   detailSendToCartBtn.innerText = "Agregar al Carrito";
   //Boton continuar comprando
   const detailBtnBack = document.createElement("button");
@@ -156,13 +160,9 @@ function displayProductDetail(codeBook) {
 /* ------------CARRITO DE COMPRA----------------------------------- */
 
 function createProductCart(code, title, imageUrl, price, quantity) {
-  const cartWrap = document.createElement("div");
-
-  cartWrap.classList.add("container", "h-100", "py-1");
-
   //Container de cada producto agregado al carrito(este elemento contiene el #id )
+  cartWrap.classList.add("container", "h-100", "py-1");
   const cartContainer = document.createElement("div");
-  cartContainer.setAttribute("id", code);
   cartContainer.classList.add(
     "row",
     "d-flex",
@@ -172,9 +172,9 @@ function createProductCart(code, title, imageUrl, price, quantity) {
   );
   //contruyendo la card de cada producto del carrito
   const cartCard = document.createElement("div");
-  cartCard.classList.add("card", "rounded-3");
+  cartCard.classList.add("card", "rounded-3", "mb-1");
   const cartCardBody = document.createElement("div");
-  cartCardBody.classList.add("card-body", "p-4");
+  cartCardBody.classList.add("card-body", "p-3");
   const cartCardBodyRow = document.createElement("div");
   cartCardBodyRow.classList.add(
     "row",
@@ -222,7 +222,7 @@ function createProductCart(code, title, imageUrl, price, quantity) {
     "text-end"
   );
   const cartBtnDelete = document.createElement("button");
-  cartBtnDelete.setAttribute("onclick", `deleteProductFromCard(${code})`);
+  cartBtnDelete.setAttribute("onclick", `cartAction( ${code},'delete' )`);
   cartBtnDelete.classList.add(
     "text-danger",
     "fs-6",
@@ -233,6 +233,7 @@ function createProductCart(code, title, imageUrl, price, quantity) {
 
   //Agregando elementos al DOM
   DOMcart.appendChild(cartContainer);
+
   cartContainer.appendChild(cartWrap);
   cartWrap.appendChild(cartCard);
   cartCard.appendChild(cartCardBody);
@@ -252,33 +253,73 @@ function createProductCart(code, title, imageUrl, price, quantity) {
   showStoreComponent("product-cart");
 }
 
-//Agregar producto al carrito
-function addProductToCart(codeBook) {
-  const quantity = document.getElementById("quantity").value;
+function totalsArea(neto, discount, iva, total) {
+  totalsContainer = document.createElement("div");
+  const totalsNeto = document.createElement("div");
+  totalsNeto.innerText = neto;
+  const totalsIVA = document.createElement("div");
+  totalsIVA.innerText = iva;
+  const totalsDiscount = document.createElement("div");
+  totalsDiscount.innerText = discount;
+  const totalsTotal = document.createElement("div");
+  totalsTotal.innerText = total;
 
-  const productAddedToCart = productsData
-    .filter((product) => product.codeBook == codeBook)
-    .map((product) => ({
-      codeBook: product.codeBook,
-      titleBook: product.titleBook,
-      price: product.price,
-      quantity,
-      cover: product.cover,
-    }));
+  //agregando elementos al DOM
 
-  createProductCart(
-    productAddedToCart[0].codeBook,
-    productAddedToCart[0].titleBook,
-    productAddedToCart[0].cover,
-    productAddedToCart[0].price,
-    productAddedToCart[0].quantity
-  );
+  DomTotalsArea.appendChild(totalsContainer);
+  totalsContainer.appendChild(totalsNeto);
+  totalsContainer.appendChild(totalsDiscount);
+  totalsContainer.appendChild(totalsIVA);
+  totalsContainer.appendChild(totalsTotal);
 }
 
-//Eliminar producto del carrito. Esta funcion busca el elemento que contiene el id que es igual al código de producto y elimina su hijo(child) con removeChild
-function deleteProductFromCard(codeBook) {
-  const itemToRemove = document.getElementById(codeBook);
-  DOMcart.removeChild(itemToRemove);
+//Agregar producto al carrito
+function cartAction(codeBook, action) {
+  const quantity = document.getElementById("quantity").value;
+  const values = [];
+  if (action === "add") {
+    const cart = productsData.filter((product) => product.codeBook == codeBook);
+    arrayCart.push({ ...cart[0], quantity });
+  }
+  if (action === "delete") {
+    arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
+  }
+  console.log();
+
+  cartWrap.textContent = "";
+  arrayCart.forEach((product) => {
+    createProductCart(
+      product.codeBook,
+      product.titleBook,
+      product.cover,
+      product.price,
+      product.quantity
+    );
+    values.push(product.price * product.quantity);
+    console.log(typeof arrayCart);
+    displayTotals(values);
+
+    //typeof arrayCart === "object" &&
+  });
+}
+
+//obtener la sumatoria del total de cada producto agregado al carrito y entlces calcular el iva y total
+
+function displayTotals(values) {
+  console.log(values);
+  let initialValue = 0;
+  let total;
+  if (values !== []) {
+    total = values.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+  }
+  const neto = Math.round(total / 1.19);
+  const iva = total - neto;
+  const discount = total >= 100000 ? (total * 0.5) / 10 : 0;
+  DomTotalsArea.textContent = "";
+  totalsArea(neto, discount, iva, total);
 }
 
 /* ------------FUNCION PARA MOSTRAR/OCULTAR ----------------------------------- */
