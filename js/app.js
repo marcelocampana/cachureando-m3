@@ -2,7 +2,7 @@
 const DOMgrid = document.getElementById("product-grid");
 const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
-const DomTotalsArea = document.getElementById("product-cart-totals");
+const DomTotalsArea = document.getElementById("product-totals");
 let arrayCart = [];
 const cartWrap = document.createElement("div");
 
@@ -273,7 +273,7 @@ function totalsArea(neto, discount, iva, total) {
   totalsContainer.appendChild(totalsTotal);
 }
 
-//Agregar producto al carrito
+//Agregar/eliminar producto al carrito
 function cartAction(codeBook, action) {
   const quantity = document.getElementById("quantity").value;
   const values = [];
@@ -284,7 +284,6 @@ function cartAction(codeBook, action) {
   if (action === "delete") {
     arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
   }
-  console.log();
 
   cartWrap.textContent = "";
   arrayCart.forEach((product) => {
@@ -298,9 +297,12 @@ function cartAction(codeBook, action) {
     values.push(product.price * product.quantity);
     console.log(typeof arrayCart);
     displayTotals(values);
-
-    //typeof arrayCart === "object" &&
   });
+  if (arrayCart.length === 0)
+    document.getElementById("product-totals").style.display = "none";
+  else {
+    document.getElementById("product-totals").style.display = "block";
+  }
 }
 
 //obtener la sumatoria del total de cada producto agregado al carrito y entlces calcular el iva y total
