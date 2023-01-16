@@ -3,8 +3,8 @@ const DOMgrid = document.getElementById("product-grid");
 const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
 const DomTotalsArea = document.getElementById("product-totals");
-let arrayCart = [];
 const cartWrap = document.createElement("div");
+let arrayCart = [];
 
 /* ------------GRILLA DE PRODUCTOS----------------------------------- */
 
@@ -254,23 +254,46 @@ function createProductCart(code, title, imageUrl, price, quantity) {
 }
 
 function totalsArea(neto, discount, iva, total) {
-  totalsContainer = document.createElement("div");
-  const totalsNeto = document.createElement("div");
-  totalsNeto.innerText = neto;
-  const totalsIVA = document.createElement("div");
-  totalsIVA.innerText = iva;
-  const totalsDiscount = document.createElement("div");
-  totalsDiscount.innerText = discount;
-  const totalsTotal = document.createElement("div");
-  totalsTotal.innerText = total;
+  const totalsContainer = document.createElement("div");
+  totalsContainer.classList.add("d-flex", "justify-content-end", "p-5");
+  const totalsLabelsContainer = document.createElement("div");
+  totalsLabelsContainer.classList.add("me-5", "fw-bold");
+  const totalsLabelNeto = document.createElement("div");
+  totalsLabelNeto.innerText = "Neto";
+  const totalsLabelIva = document.createElement("div");
+  totalsLabelIva.innerText = "IVA";
+  const totalsLabelDelivery = document.createElement("div");
+  totalsLabelDelivery.innerText = "Cargo por despacho (5%)";
+  const totalsLabelTotal = document.createElement("div");
+  totalsLabelTotal.innerText = "TOTAL";
 
-  //agregando elementos al DOM
+  const totalsValuesContainer = document.createElement("div");
+  totalsValuesContainer.classList.add("text-end");
+  const totalsNeto = document.createElement("div");
+  totalsNeto.innerText = "$" + Intl.NumberFormat("es-CL").format(neto);
+  const totalsIVA = document.createElement("div");
+  totalsIVA.innerText = "$" + Intl.NumberFormat("es-CL").format(iva);
+  const totalsDelivery = document.createElement("div");
+  totalsDelivery.innerText = "$" + Intl.NumberFormat("es-CL").format(discount);
+  const totalsTotal = document.createElement("div");
+  totalsTotal.classList.add("fw-bold");
+  totalsTotal.innerText = "$" + Intl.NumberFormat("es-CL").format(total);
+
+  //Agregando elementos al DOM
 
   DomTotalsArea.appendChild(totalsContainer);
-  totalsContainer.appendChild(totalsNeto);
-  totalsContainer.appendChild(totalsDiscount);
-  totalsContainer.appendChild(totalsIVA);
-  totalsContainer.appendChild(totalsTotal);
+
+  totalsContainer.appendChild(totalsLabelsContainer);
+  totalsLabelsContainer.appendChild(totalsLabelNeto);
+  totalsLabelsContainer.appendChild(totalsLabelDelivery);
+  totalsLabelsContainer.appendChild(totalsLabelIva);
+  totalsLabelsContainer.appendChild(totalsLabelTotal);
+
+  totalsContainer.appendChild(totalsValuesContainer);
+  totalsValuesContainer.appendChild(totalsNeto);
+  totalsValuesContainer.appendChild(totalsDelivery);
+  totalsValuesContainer.appendChild(totalsIVA);
+  totalsValuesContainer.appendChild(totalsTotal);
 }
 
 //Agregar/eliminar producto al carrito
@@ -295,14 +318,9 @@ function cartAction(codeBook, action) {
       product.quantity
     );
     values.push(product.price * product.quantity);
-    console.log(typeof arrayCart);
     displayTotals(values);
   });
-  if (arrayCart.length === 0)
-    document.getElementById("product-totals").style.display = "none";
-  else {
-    document.getElementById("product-totals").style.display = "block";
-  }
+  DomTotalsArea.style.display = arrayCart.length === 0 ? "none" : "block";
 }
 
 //obtener la sumatoria del total de cada producto agregado al carrito y entlces calcular el iva y total
@@ -318,10 +336,11 @@ function displayTotals(values) {
     );
   }
   const neto = Math.round(total / 1.19);
-  const iva = total - neto;
-  const discount = total >= 100000 ? (total * 0.5) / 10 : 0;
+  const delivery = total < 100000 ? Math.round((neto * 0.5) / 10) : 0;
+  const iva = Math.round(((neto + delivery) * 19) / 100);
+
   DomTotalsArea.textContent = "";
-  totalsArea(neto, discount, iva, total);
+  totalsArea(neto, delivery, iva, total);
 }
 
 /* ------------FUNCION PARA MOSTRAR/OCULTAR ----------------------------------- */
