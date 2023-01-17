@@ -354,3 +354,34 @@ function showStoreComponent(component) {
   document.getElementById("product-cart").className =
     component === "product-cart" ? "row" : "d-none";
 }
+/* ------------Formulario ----------------------------------- */
+//Div inicial
+const initialContainer = document.createElement("div");
+initialContainer.innerText= "Ingresa tu email"
+initialContainer.classList.add("col-6", "d-flex", "justify-content-center", "type=");
+// titulo
+const tittleEmail = document.createElement("h1");
+tittleEmail.classList.add("col-6", "d-flex", "justify-content-center");
+//  direcion comuna region nombredelreseptor correo electronico
+const inputDirecccion = document.createElement("input");
+inputDirecccion.classList.add("col-6", "d-flex", "justify-content-star");
+// comuna
+const tittleEmail = document.createElement("p");
+tittleEmail.classList.add("col-2", "d-flex", "justify-content-center");
+const inputcomuna = document.createElement("input");
+inputcomuna.classList.add("col-3", "d-flex", "justify-content-star");
+ini
+// region
+const inputRegion = document.createElement("input");
+inputRegion.classList.add("col-6", "d-flex", "justify-content-star");
+// nombre receptor
+const inputNombre = document.createElement("input");
+inputNombre.classList.add("col-6", "d-flex", "justify-content-star");
+// Correo electronico
+const inputEmail = document.createElement("input");
+inputEmail.classList.add("col-6", "d-flex", "justify-content-star");
+
+
+// button
+const butonEmail = document.createElement("button");
+initialContainer.classList.add("col-6", "d-flex", "justify-content-center");
