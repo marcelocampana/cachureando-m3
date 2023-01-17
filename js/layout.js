@@ -27,9 +27,9 @@ const footer = `<footer class="bg-light text-center text-lg-start ">
         <!-- Grid container -->
         <div class="container p-4">
           <!--Grid row-->
-          <div class="row">
+          <div class="row d-flex justify-content-evenly">
             <!--Grid column-->
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
               <h5 class="text-uppercase">Garantía</h5>
       
               <p>
@@ -39,7 +39,7 @@ const footer = `<footer class="bg-light text-center text-lg-start ">
             <!--Grid column-->
       
             <!--Grid column-->
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
               <h5 class="text-uppercase">Pago 100% seguro</h5>
       
               <p>
