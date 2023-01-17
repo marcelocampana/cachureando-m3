@@ -2,6 +2,7 @@
 const DOMgrid = document.getElementById("product-grid");
 const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
+const DOMForm = document.getElementById("form");
 const DomTotalsArea = document.getElementById("product-totals");
 const cartWrap = document.createElement("div");
 let arrayCart = [];
@@ -370,51 +371,51 @@ tittleEmail.classList.add("col-6", );
 const divDireccion = document.createElement("div");
 divDireccion.classList.add("mb-3");
 const inputDirecccion = document.createElement("input");
-inputDirecccion.classList.add("form-control", "placeholder='Ingresa tu direccion'");
+inputDirecccion.classList.add("form-control");
+inputDirecccion.setAttribute("placeholder", "Ingresa tu direccion")
 
 // comuna-
 const divComuna = document.createElement("div");
 divComuna.classList.add("mb-3");
 const inputComuna = document.createElement("input");
-inputComuna.classList.add("form-control", "placeholder='Ingresa tu comuna'");
-
+inputComuna.classList.add("form-control");
+inputComuna.setAttribute("placeholder", "Ingresa tu comuna")
 // region-
 const divRegion = document.createElement("div");
 divRegion.classList.add("mb-3");
 const inputRegion = document.createElement("input");
-inputRegion.classList.add("form-control", "placeholder='Ingresa tu region'");;
+inputRegion.classList.add("form-control");
+inputRegion.setAttribute("placeholder", "Ingresa tu region");
 
 // nombre receptor-
 const divNombre = document.createElement("div");
 divNombre.classList.add("mb-3");
 const inputNombre = document.createElement("input");
-inputNombre.classList.add("form-control", "placeholder='Ingresa tu nombre'");;
+inputNombre.classList.add("form-control");
+inputNombre.setAttribute("placeholder", "Ingresa tu nombre");
 
 // Correo electronico
 const divEmail = document.createElement("div");
 divEmail.classList.add("mb-3");
 const inputEmail = document.createElement("input");
-inputEmail.classList.add("form-control", "placeholder='Ingresa tu email'","type=email");
-
+inputEmail.classList.add("form-control","type=email");
+inputEmail.setAttribute("placeholder", "Ingresa tu email")
 // button
 const butonEmail = document.createElement("button");
-initialContainer.classList.add("btn", "btn-primary");
-
+butonEmail.classList.add("btn", "btn-primary");
+butonEmail.innerText = "Enviar"
 //Agregando elementos al DOM
+DOMForm.appendChild(form)
 form.appendChild(tittleEmail);
 form.appendChild(divDireccion);
 divDireccion.appendChild(inputDirecccion);
-
 form.appendChild(divComuna);
 divComuna.appendChild(inputComuna);
-
 form.appendChild(divRegion);
 divRegion.appendChild(inputRegion);
-
 form.appendChild(divNombre);
 divNombre.appendChild(inputNombre);
-
 form.appendChild(divEmail);
 divEmail.appendChild(inputEmail);
-
 form.appendChild(butonEmail);
+
