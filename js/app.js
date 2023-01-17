@@ -355,33 +355,66 @@ function showStoreComponent(component) {
     component === "product-cart" ? "row" : "d-none";
 }
 /* ------------Formulario ----------------------------------- */
+
+// Form
+const form = document.createElement("form");
 //Div inicial
 const initialContainer = document.createElement("div");
 initialContainer.innerText= "Ingresa tu email"
-initialContainer.classList.add("col-6", "d-flex", "justify-content-center", "type=");
+initialContainer.classList.add("col-6", "d-flex", "justify-content-center", );
 // titulo
 const tittleEmail = document.createElement("h1");
-tittleEmail.classList.add("col-6", "d-flex", "justify-content-center");
-//  direcion comuna region nombredelreseptor correo electronico
-const inputDirecccion = document.createElement("input");
-inputDirecccion.classList.add("col-6", "d-flex", "justify-content-star");
-// comuna
-const tittleEmail = document.createElement("p");
-tittleEmail.classList.add("col-2", "d-flex", "justify-content-center");
-const inputcomuna = document.createElement("input");
-inputcomuna.classList.add("col-3", "d-flex", "justify-content-star");
-ini
-// region
-const inputRegion = document.createElement("input");
-inputRegion.classList.add("col-6", "d-flex", "justify-content-star");
-// nombre receptor
-const inputNombre = document.createElement("input");
-inputNombre.classList.add("col-6", "d-flex", "justify-content-star");
-// Correo electronico
-const inputEmail = document.createElement("input");
-inputEmail.classList.add("col-6", "d-flex", "justify-content-star");
+tittleEmail.classList.add("col-6", );
 
+//  direccion -
+const divDireccion = document.createElement("div");
+divDireccion.classList.add("mb-3");
+const inputDirecccion = document.createElement("input");
+inputDirecccion.classList.add("form-control", "placeholder='Ingresa tu direccion'");
+
+// comuna-
+const divComuna = document.createElement("div");
+divComuna.classList.add("mb-3");
+const inputComuna = document.createElement("input");
+inputComuna.classList.add("form-control", "placeholder='Ingresa tu comuna'");
+
+// region-
+const divRegion = document.createElement("div");
+divRegion.classList.add("mb-3");
+const inputRegion = document.createElement("input");
+inputRegion.classList.add("form-control", "placeholder='Ingresa tu region'");;
+
+// nombre receptor-
+const divNombre = document.createElement("div");
+divNombre.classList.add("mb-3");
+const inputNombre = document.createElement("input");
+inputNombre.classList.add("form-control", "placeholder='Ingresa tu nombre'");;
+
+// Correo electronico
+const divEmail = document.createElement("div");
+divEmail.classList.add("mb-3");
+const inputEmail = document.createElement("input");
+inputEmail.classList.add("form-control", "placeholder='Ingresa tu email'","type=email");
 
 // button
 const butonEmail = document.createElement("button");
-initialContainer.classList.add("col-6", "d-flex", "justify-content-center");
+initialContainer.classList.add("btn", "btn-primary");
+
+//Agregando elementos al DOM
+form.appendChild(tittleEmail);
+form.appendChild(divDireccion);
+divDireccion.appendChild(inputDirecccion);
+
+form.appendChild(divComuna);
+divComuna.appendChild(inputComuna);
+
+form.appendChild(divRegion);
+divRegion.appendChild(inputRegion);
+
+form.appendChild(divNombre);
+divNombre.appendChild(inputNombre);
+
+form.appendChild(divEmail);
+divEmail.appendChild(inputEmail);
+
+form.appendChild(butonEmail);
