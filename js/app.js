@@ -212,7 +212,13 @@ function createProductCart(code, title, imageUrl, price, quantity) {
   const cartTotal = document.createElement("div");
   cartTotal.classList.add("mb-0");
   cartTotal.innerText =
-    "$" + Intl.NumberFormat("es-CL").format(price * quantity);
+  "$" + Intl.NumberFormat("es-CL").format(price * quantity);
+  //Boton eliminar (Elimina un producto del carrito llamando a la funcion deleteProductFromCard())
+  
+  const cartIconDelete = document.createElement("i")
+  cartIconDelete.classList.add("fa-solid", "fa-trash-can", "text-danger") 
+  cartIconDelete.style.cursor="pointer"
+  cartIconDelete.setAttribute("onclick", `cartAction( ${code},'delete' )`);
   const cartBtnDeleteCol = document.createElement("div");
   //Boton eliminar (Elimina un producto del carrito llamando a la funcion deleteProductFromCard())
   cartBtnDeleteCol.classList.add(
@@ -222,15 +228,15 @@ function createProductCart(code, title, imageUrl, price, quantity) {
     "text-end"
   );
   const cartBtnDelete = document.createElement("button");
-  cartBtnDelete.setAttribute("onclick", `cartAction( ${code},'delete' )`);
   cartBtnDelete.classList.add(
     "text-danger",
     "fs-6",
     "bg-transparent",
     "border-0"
   );
-  cartBtnDelete.innerText = "Eliminar";
+  cartBtnDelete.innerHTML = cartIconDelete;
 
+  //
   //Agregando elementos al DOM
   DOMcart.appendChild(cartContainer);
 
@@ -249,7 +255,7 @@ function createProductCart(code, title, imageUrl, price, quantity) {
   cartCardBodyRow.appendChild(cartTotalCol);
   cartTotalCol.appendChild(cartTotal);
   cartCardBodyRow.appendChild(cartBtnDeleteCol);
-  cartBtnDeleteCol.appendChild(cartBtnDelete);
+  cartBtnDeleteCol.appendChild(cartIconDelete);
   showStoreComponent("product-cart");
 }
 
