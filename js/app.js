@@ -4,6 +4,8 @@ const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
 const DomTotalsArea = document.getElementById("product-totals");
 const cartWrap = document.createElement("div");
+/*Modal */
+const DOMmodal =document.getElementById("exampleModal");
 let arrayCart = [];
 
 /* ------------GRILLA DE PRODUCTOS----------------------------------- */
@@ -353,4 +355,18 @@ function showStoreComponent(component) {
     component === "product-detail" ? "row" : "d-none";
   document.getElementById("product-cart").className =
     component === "product-cart" ? "row" : "d-none";
+}
+
+/* Crear un modal  */
+function createModal(){
+  const buttonModal = document.createElement("btn");
+  buttonModal.classList.add("btn btn-primary");
+  buttonModal.textContent = 'Finalizar Compra'; 
+  buttonModal.getAttribute('data-bs-toggle','modal');
+  buttonModal.getAttribute('data-bs-target','#exampleModal');
+
+ //Agregando elementos al DOM
+ DOMmodal.appendChild(buttonModal);
+ createModal()
+
 }
