@@ -5,7 +5,7 @@ const DOMcart = document.getElementById("product-cart");
 const DomTotalsArea = document.getElementById("product-totals");
 const cartWrap = document.createElement("div");
 /*Modal */
-const DOMmodal =document.getElementById("exampleModal");
+const DOMmodal = document.getElementById("btn-modal");
 let arrayCart = [];
 
 /* ------------GRILLA DE PRODUCTOS----------------------------------- */
@@ -358,15 +358,73 @@ function showStoreComponent(component) {
 }
 
 /* Crear un modal  */
-function createModal(){
-  const buttonModal = document.createElement("btn");
-  buttonModal.classList.add("btn btn-primary");
-  buttonModal.textContent = 'Finalizar Compra'; 
-  buttonModal.getAttribute('data-bs-toggle','modal');
-  buttonModal.getAttribute('data-bs-target','#exampleModal');
 
- //Agregando elementos al DOM
- DOMmodal.appendChild(buttonModal);
- createModal()
+  const buttonModal = document.createElement("button");
+  buttonModal.classList.add("btn","btn-primary");
+  buttonModal.classList.add("d-grid","gap-2","d-m-flex","justify-content-md-end");
+  buttonModal.textContent = 'Finalizar Compra';
+  buttonModal.setAttribute('data-bs-toggle','modal');
+  buttonModal.setAttribute('data-bs-target','#exampleModal');
+  buttonModal.setAttribute('data-bs-whatever','@mdo');
 
-}
+  const divModal = document.createElement("div");
+  divModal.classList.add("modal","fade");
+  divModal.setAttribute('id','exampleModal');
+  divModal.setAttribute('tabindex','-1');
+  divModal.setAttribute('aria-labelledby','exampleModalLabel');
+  divModal.setAttribute('aria-hidden','true');
+
+  const divModalDialog = document.createElement('div');
+  divModalDialog.classList.add('modal-dialog');
+
+  const divModalContent = document.createElement('div');
+  divModalContent.classList.add('modal-content');
+
+  const divModalHeader = document.createElement('div');
+  divModalHeader.classList.add('modal-header');
+
+  const divModalTitle = document.createElement('h1');
+  divModalTitle.classList.add('modal-title');
+  divModalTitle.setAttribute('id','exampleModalLabel');
+
+  const buttonClose = document.createElement('button');
+  buttonClose.setAttribute('type','button');
+  buttonClose.classList.add('btn-close');
+  buttonClose.setAttribute('data-bs-dismiss','modal');
+  buttonClose.setAttribute('aria-label','Close');
+
+  const divModalBody = document.createElement('div');
+  divModalBody.classList.add('modal-body');
+
+  const divModalFooter = document.createElement('div');
+  divModalFooter.classList.add('modal-footer');
+
+  const buttonCloseFooter = document.createElement('button');
+  buttonCloseFooter.setAttribute('type','button');
+  buttonCloseFooter.classList.add("btn","btn-danger");
+  buttonCloseFooter.setAttribute('data-bs-dismiss','modal');
+  buttonCloseFooter.textContent = 'Cerrar';
+
+  const buttonSendFooter =document.createElement('button');
+  buttonSendFooter.classList.add("btn","btn-primary");
+  buttonSendFooter.textContent = 'Enviar';
+
+//Agregando elementos al DOM
+  DOMmodal.appendChild(buttonModal);
+  buttonModal.appendChild(divModal);
+  divModal.appendChild(divModalDialog);
+  divModalDialog.appendChild(divModalContent);
+  divModalContent.appendChild(divModalHeader);
+  divModalHeader.appendChild(divModalTitle);
+  divModalHeader.appendChild(buttonClose);
+  divModalContent.appendChild(divModalBody);
+  divModalContent.appendChild(divModalFooter);
+  divModalFooter.appendChild(buttonCloseFooter);
+  divModalFooter.appendChild(buttonSendFooter);
+
+
+
+
+
+
+
