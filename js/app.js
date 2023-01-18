@@ -4,6 +4,8 @@ const DOMdetail = document.getElementById("product-detail");
 const DOMcart = document.getElementById("product-cart");
 const DomTotalsArea = document.getElementById("product-totals");
 const cartWrap = document.createElement("div");
+/*Modal */
+const DOMmodal = document.getElementById("btn-modal");
 let arrayCart = [];
 
 /* ------------GRILLA DE PRODUCTOS----------------------------------- */
@@ -28,7 +30,12 @@ function createProductGrid(title, image, price, code) {
 
   //Cuerpo de la card
   const cardBody = document.createElement("div");
-  cardBody.classList.add("card-body", "d-flex", "flex-column", "justify-content-end");
+  cardBody.classList.add(
+    "card-body",
+    "d-flex",
+    "flex-column",
+    "justify-content-end"
+  );
 
   //Titulo de la card
   const cardTitle = document.createElement("h5");
@@ -212,12 +219,12 @@ function createProductCart(code, title, imageUrl, price, quantity) {
   const cartTotal = document.createElement("div");
   cartTotal.classList.add("mb-0");
   cartTotal.innerText =
-  "$" + Intl.NumberFormat("es-CL").format(price * quantity);
+    "$" + Intl.NumberFormat("es-CL").format(price * quantity);
   //Boton eliminar (Elimina un producto del carrito llamando a la funcion deleteProductFromCard())
-  
-  const cartIconDelete = document.createElement("i")
-  cartIconDelete.classList.add("fa-solid", "fa-trash-can", "text-danger") 
-  cartIconDelete.style.cursor="pointer"
+
+  const cartIconDelete = document.createElement("i");
+  cartIconDelete.classList.add("fa-solid", "fa-trash-can", "text-danger");
+  cartIconDelete.style.cursor = "pointer";
   cartIconDelete.setAttribute("onclick", `cartAction( ${code},'delete' )`);
   const cartBtnDeleteCol = document.createElement("div");
   //Boton eliminar (Elimina un producto del carrito llamando a la funcion deleteProductFromCard())
@@ -348,6 +355,141 @@ function displayTotals(values) {
   DomTotalsArea.textContent = "";
   totalsArea(neto, delivery, iva, total);
 }
+
+/* ------------Formulario ----------------------------------- */
+
+// Form
+const form = document.createElement("form");
+//Div inicial
+const initialContainer = document.createElement("div");
+initialContainer.innerText = "Ingresa tu email";
+initialContainer.classList.add("col-6", "d-flex", "justify-content-center");
+// titulo
+const tittleEmail = document.createElement("h1");
+tittleEmail.classList.add("col-6");
+
+//  direccion -
+const divDireccion = document.createElement("div");
+divDireccion.classList.add("mb-3");
+const inputDirecccion = document.createElement("input");
+inputDirecccion.classList.add("form-control");
+inputDirecccion.setAttribute("placeholder", "Ingresa tu direccion");
+
+// comuna-
+const divComuna = document.createElement("div");
+divComuna.classList.add("mb-3");
+const inputComuna = document.createElement("input");
+inputComuna.classList.add("form-control");
+inputComuna.setAttribute("placeholder", "Ingresa tu comuna");
+// region-
+const divRegion = document.createElement("div");
+divRegion.classList.add("mb-3");
+const inputRegion = document.createElement("input");
+inputRegion.classList.add("form-control");
+inputRegion.setAttribute("placeholder", "Ingresa tu region");
+
+// nombre receptor-
+const divNombre = document.createElement("div");
+divNombre.classList.add("mb-3");
+const inputNombre = document.createElement("input");
+inputNombre.classList.add("form-control");
+inputNombre.setAttribute("placeholder", "Ingresa tu nombre");
+
+// Correo electronico
+const divEmail = document.createElement("div");
+divEmail.classList.add("mb-3");
+const inputEmail = document.createElement("input");
+inputEmail.classList.add("form-control", "type=email");
+inputEmail.setAttribute("placeholder", "Ingresa tu email");
+// button
+const butonEmail = document.createElement("button");
+butonEmail.classList.add("btn", "btn-primary");
+butonEmail.innerText = "Enviar";
+//Agregando elementos al DOM
+
+form.appendChild(tittleEmail);
+form.appendChild(divDireccion);
+divDireccion.appendChild(inputDirecccion);
+form.appendChild(divComuna);
+divComuna.appendChild(inputComuna);
+form.appendChild(divRegion);
+divRegion.appendChild(inputRegion);
+form.appendChild(divNombre);
+divNombre.appendChild(inputNombre);
+form.appendChild(divEmail);
+divEmail.appendChild(inputEmail);
+form.appendChild(butonEmail);
+
+/* -----------------MODAL----------------------------------------  */
+
+const buttonModal = document.createElement("button");
+buttonModal.classList.add("btn", "btn-primary");
+buttonModal.classList.add(
+  "d-grid",
+  "gap-2",
+  "d-m-flex",
+  "justify-content-md-end"
+);
+buttonModal.textContent = "Finalizar Compra";
+buttonModal.setAttribute("type", "button");
+buttonModal.setAttribute("data-bs-toggle", "modal");
+buttonModal.setAttribute("data-bs-target", "#staticBackdrop");
+
+const divModal = document.createElement("div");
+divModal.classList.add("modal", "fade");
+divModal.setAttribute("id", "staticBackdrop");
+divModal.setAttribute("data-bs-backdrop", "static");
+divModal.setAttribute("data-bs-keyboard", "false");
+divModal.setAttribute("tabindex", "-1");
+divModal.setAttribute("data-bs-aria-labelledby", "staticBackdropLabel");
+divModal.setAttribute("aria-hidden", "true");
+
+const divModalDialog = document.createElement("div");
+divModalDialog.classList.add("modal-dialog");
+
+const divModalContent = document.createElement("div");
+divModalContent.classList.add("modal-content");
+
+const divModalHeader = document.createElement("div");
+divModalHeader.classList.add("modal-header");
+
+const divModalTitle = document.createElement("h1");
+divModalTitle.classList.add("modal-title");
+divModalTitle.setAttribute("id", "staticBackdropLabel");
+
+const buttonClose = document.createElement("button");
+buttonClose.setAttribute("type", "button");
+buttonClose.classList.add("btn-close");
+buttonClose.setAttribute("data-bs-dismiss", "modal");
+buttonClose.setAttribute("aria-label", "Close");
+
+const divModalBody = document.createElement("div");
+divModalBody.classList.add("modal-body");
+
+const divModalFooter = document.createElement("div");
+divModalFooter.classList.add("modal-footer");
+
+const buttonCloseFooter = document.createElement("button");
+buttonCloseFooter.setAttribute("type", "button");
+buttonCloseFooter.classList.add("btn", "btn-danger");
+buttonCloseFooter.setAttribute("data-bs-dismiss", "modal");
+buttonCloseFooter.textContent = "Cerrar";
+
+const buttonSendFooter = document.createElement("button");
+buttonSendFooter.classList.add("btn", "btn-primary");
+buttonSendFooter.textContent = "Enviar";
+
+//Agregando elementos al DOM
+DOMmodal.appendChild(buttonModal);
+DOMmodal.appendChild(divModal);
+divModal.appendChild(divModalDialog);
+divModalDialog.appendChild(divModalContent);
+divModalContent.appendChild(divModalHeader);
+divModalHeader.appendChild(buttonClose);
+divModalHeader.appendChild(divModalTitle);
+divModalContent.appendChild(divModalBody);
+divModalBody.appendChild(form);
+divModalContent.appendChild(divModalFooter);
 
 /* ------------FUNCION PARA MOSTRAR/OCULTAR ----------------------------------- */
 
