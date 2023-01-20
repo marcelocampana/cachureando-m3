@@ -111,18 +111,16 @@ function cartAction(codeBook, action) {
   const msg = document.createElement("h1");
   msg.style.height = "200px";
 
-  const productMsg = document.getElementById("product-cart-msg");
-  productMsg.classList.add("text-center", "pt-5");
-
+  const cartState = document.getElementById("product-cart-msg");
+  cartState.classList.add("text-center", "pt-5");
   const quantity = document.getElementById("quantity").value;
   const values = [];
   if (action === "add") {
     const cart = productsData.filter((product) => product.codeBook == codeBook);
-    console.log(cart);
     arrayCart.push({ ...cart[0], quantity });
-    createModal();
 
-    productMsg.textContent = "";
+    createModal();
+    cartState.textContent = "";
   }
   if (action === "delete") {
     arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
@@ -132,14 +130,18 @@ function cartAction(codeBook, action) {
       DOMmodal.innerHTML = "";
       msg.classList.add("p-5");
       msg.innerText = "El carrito está vacío :(";
-      productMsg.appendChild(msg);
+      cartState.appendChild(msg);
     } else {
       createModal();
     }
+  } else {
+    createModal();
   }
 
   cartWrap.textContent = "";
   arrayCart.forEach((product) => {
+    action == "0" && fetchDataforInvoice(arrayCart);
+    action == "0" && fetchCustomerData();
     createProductCart(
       product.codeBook,
       product.titleBook,
@@ -211,15 +213,24 @@ function displayTotals(values) {
   const delivery = total < 100000 ? Math.round((neto * 0.5) / 10) : 0;
   const iva = Math.round(((neto + delivery) * 19) / 100);
 
+  invoiceTotals = {
+    neto,
+    delivery,
+    iva,
+    total,
+  };
+
   DomTotalsArea.textContent = "";
   totalsArea(neto, delivery, iva, total);
+
+  return invoiceTotals;
 }
 
 /* ---------------- BOLETA--------------------------------- */
 //------------Formulario para boleta ----------------------
 
 // Form
-const form = document.createElement("form");
+const form = document.createElement("div");
 //Div inicial
 const initialContainer = document.createElement("div");
 initialContainer.innerText = "Ingresa tu email";
@@ -232,6 +243,7 @@ tittleEmail.classList.add("col-6");
 const divDireccion = document.createElement("div");
 divDireccion.classList.add("mb-3");
 const inputDirecccion = document.createElement("input");
+inputDirecccion.setAttribute("id", "customer-address");
 inputDirecccion.classList.add("form-control");
 inputDirecccion.setAttribute("placeholder", "Ingresa tu direccion");
 
@@ -239,32 +251,40 @@ inputDirecccion.setAttribute("placeholder", "Ingresa tu direccion");
 const divComuna = document.createElement("div");
 divComuna.classList.add("mb-3");
 const inputComuna = document.createElement("input");
+inputComuna.setAttribute("id", "customer-comuna");
 inputComuna.classList.add("form-control");
 inputComuna.setAttribute("placeholder", "Ingresa tu comuna");
 // region-
 const divRegion = document.createElement("div");
 divRegion.classList.add("mb-3");
 const inputRegion = document.createElement("input");
+inputRegion.setAttribute("id", "customer-region");
 inputRegion.classList.add("form-control");
 inputRegion.setAttribute("placeholder", "Ingresa tu region");
 
 // nombre receptor-
 const divNombre = document.createElement("div");
+
 divNombre.classList.add("mb-3");
 const inputNombre = document.createElement("input");
+inputNombre.attributes.required = "required";
+inputNombre.setAttribute("id", "customer-name");
 inputNombre.classList.add("form-control");
 inputNombre.setAttribute("placeholder", "Ingresa tu nombre");
 
 // Correo electronico
 const divEmail = document.createElement("div");
+
 divEmail.classList.add("mb-3");
 const inputEmail = document.createElement("input");
+inputEmail.setAttribute("id", "customer-email");
 inputEmail.classList.add("form-control", "type=email");
 inputEmail.setAttribute("placeholder", "Ingresa tu email");
 // button
-const butonEmail = document.createElement("button");
-butonEmail.classList.add("btn", "btn-primary");
-butonEmail.innerText = "Enviar";
+const buttonEmail = document.createElement("button");
+buttonEmail.setAttribute("onclick", "cartAction(0,0)");
+buttonEmail.classList.add("btn", "btn-primary");
+buttonEmail.innerText = "Enviar";
 
 //Agregando elementos al DOM
 
@@ -279,7 +299,7 @@ form.appendChild(divNombre);
 divNombre.appendChild(inputNombre);
 form.appendChild(divEmail);
 divEmail.appendChild(inputEmail);
-form.appendChild(butonEmail);
+form.appendChild(buttonEmail);
 
 // -----------------MODAL------------------------------------
 

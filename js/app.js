@@ -9,6 +9,7 @@ templateContainer.classList.add("my-5", "mx-auto", "container");
 /*Modal */
 const DOMmodal = document.getElementById("btn-modal");
 let arrayCart = [];
+let invoiceTotals = {};
 
 /* ------------FUNCION PARA MOSTRAR/OCULTAR ----------------------------------- */
 
