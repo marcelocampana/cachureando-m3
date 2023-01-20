@@ -236,8 +236,11 @@ const initialContainer = document.createElement("div");
 initialContainer.innerText = "Ingresa tu email";
 initialContainer.classList.add("col-6", "d-flex", "justify-content-center");
 // titulo
-const tittleEmail = document.createElement("h1");
-tittleEmail.classList.add("col-6");
+const divTitle = document.createElement("div");
+divTitle.classList.add("mb-4");
+const tittleEmail = document.createElement("h4");
+tittleEmail.innerText = "Datos para el envio";
+tittleEmail.classList.add("col-6", "d-flex" , "justify-content-center");
 
 //  direccion -
 const divDireccion = document.createElement("div");
@@ -288,17 +291,18 @@ buttonEmail.innerText = "Enviar";
 
 //Agregando elementos al DOM
 
-form.appendChild(tittleEmail);
+form.appendChild(divTitle);
+divTitle.appendChild(tittleEmail)
+form.appendChild(divNombre);
+divNombre.appendChild(inputNombre);
+form.appendChild(divEmail);
+divEmail.appendChild(inputEmail);
 form.appendChild(divDireccion);
 divDireccion.appendChild(inputDirecccion);
 form.appendChild(divComuna);
 divComuna.appendChild(inputComuna);
 form.appendChild(divRegion);
 divRegion.appendChild(inputRegion);
-form.appendChild(divNombre);
-divNombre.appendChild(inputNombre);
-form.appendChild(divEmail);
-divEmail.appendChild(inputEmail);
 form.appendChild(buttonEmail);
 
 // -----------------MODAL------------------------------------
