@@ -9,7 +9,7 @@ const nav = `
   <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <button class="nav-link border-0 bg-transparent" aria-current="page" onclick="showStoreComponent('product-grid')">Catálogo</button>
+        <button class="nav-link border-0 bg-transparent" aria-current="page" onclick="showStoreComponent('product-grid')">Catálogo de productos</button>
       </li>
       <li class="nav-item">
          <button class="nav-link border-0 bg-transparent" aria-current="page" onclick="showStoreComponent('product-cart')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px">
