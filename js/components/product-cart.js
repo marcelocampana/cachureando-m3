@@ -136,7 +136,6 @@ function cartAction(codeBook, action) {
     }
   } else {
     createModal();
-
   }
 
   cartWrap.textContent = "";
@@ -232,7 +231,7 @@ function displayTotals(values) {
 
 // Form
 const form = document.createElement("form");
-form.setAttribute("action", "#")
+form.onsubmit = prev;
 //Div inicial
 const initialContainer = document.createElement("div");
 initialContainer.innerText = "Ingresa tu email";
@@ -242,7 +241,7 @@ const divTitle = document.createElement("div");
 divTitle.classList.add("mb-4");
 const tittleEmail = document.createElement("h4");
 tittleEmail.innerText = "Datos para el envio";
-tittleEmail.classList.add("col-6", "d-flex" , "justify-content-center");
+tittleEmail.classList.add("col-6", "d-flex", "justify-content-center");
 
 //  direccion -
 const divDireccion = document.createElement("div");
@@ -301,7 +300,7 @@ buttonEmail.innerText = "Enviar";
 //Agregando elementos al DOM
 
 form.appendChild(divTitle);
-divTitle.appendChild(tittleEmail)
+divTitle.appendChild(tittleEmail);
 form.appendChild(divNombre);
 divNombre.appendChild(inputNombre);
 form.appendChild(divEmail);
@@ -383,3 +382,7 @@ function createModal() {
 }
 
 createModal();
+function prev(e) {
+  e.preventDefault();
+  cartAction(0, 0);
+}

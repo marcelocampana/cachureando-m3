@@ -17,12 +17,20 @@ function fetchDataforInvoice(array) {
 }
 
 function createInvoice(products, neto, iva, delivery, total, customerData) {
-  console.log(products, neto, iva, delivery, total, customerData);
-
   const invoiceContainer = document.createElement("div");
-
+  invoiceContainer.classList.add("border", "p-5");
+  const invoiceMainTitle = document.createElement("h1");
+  const cutName = customerData.customerName.split(" ");
+  var firstName = cutName[0];
+  invoiceMainTitle.innerText = `Gracias ${firstName}!`;
+  const invoiceMainMessage = document.createElement("h5");
+  invoiceMainMessage.classList.add("mb-3");
+  invoiceMainMessage.innerText = `Hemos enviado una copia de tu boleta al correo electronico ${customerData.customerEmail} `;
+  const invoiceTitleProducts = document.createElement("h4");
+  invoiceTitleProducts.innerText = "Productos solicitados";
+  invoiceTitleProducts.classList.add("mt-5");
   const invoiceRowProducts = document.createElement("div");
-  invoiceRowProducts.classList.add("row");
+  invoiceRowProducts.classList.add("row", "pb-3");
 
   const invoiceRowTotals = document.createElement("div");
   invoiceRowTotals.classList.add("d-flex", "justify-content-end");
@@ -44,38 +52,54 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceRowTotalsTotals = document.createElement("div");
   invoiceRowTotalsTotals.classList.add("col-3");
   const invoiceNeto = document.createElement("div");
-  invoiceNeto.innerText = neto;
+  invoiceNeto.classList.add("ps-1");
+  invoiceNeto.innerText = "$" + Intl.NumberFormat("es-CL").format(neto);
   const invoiceDelivery = document.createElement("div");
-  invoiceDelivery.innerText = delivery;
+  invoiceDelivery.classList.add("ps-1");
+  invoiceDelivery.innerText = "$" + Intl.NumberFormat("es-CL").format(delivery);
   const invoiceIva = document.createElement("div");
-  invoiceIva.innerText = iva;
+  invoiceIva.classList.add("ps-1");
+  invoiceIva.innerText = "$" + Intl.NumberFormat("es-CL").format(iva);
   const invoiceTotal = document.createElement("div");
-  invoiceTotal.innerText = total;
+  invoiceTotal.classList.add("ps-1");
+  invoiceTotal.innerText = "$" + Intl.NumberFormat("es-CL").format(total);
+  const invoiceTitleBankAccount = document.createElement("h4");
+  invoiceTitleBankAccount.innerText = "Datos para el pago";
+  invoiceTitleBankAccount.classList.add("mt-5");
   const invoiceRowBankAccount = document.createElement("div");
+  const invoiceBankAccountAccountLabels = document.createElement("div");
+  const invoiceBankAccountAccountName = document.createElement("div");
+  invoiceBankAccountAccountName.innerHTML = "Cachureando Books";
+  const invoiceBankAccountAccountNumber = document.createElement("div");
+  const invoiceBankAccountAccountEmail = document.createElement("div");
+  const invoiceBankAccountAccountData = document.createElement("div");
   const invoiceBankAccountNumber = document.createElement("div");
   invoiceBankAccountNumber.innerText = "999-786-3410";
   const invoiceBankAccountName = document.createElement("div");
   invoiceBankAccountName.innerText = "Banco de Chile";
+  const invoiceBankAccountEmail = document.createElement("div");
+  invoiceBankAccountEmail.innerText = "pagos@cachureando.cl";
   const invoiceMainTitlecustomer = document.createElement("h4");
   invoiceMainTitlecustomer.innerText = "Datos para el envio";
+  invoiceMainTitlecustomer.classList.add("mt-4");
   const invoiceRowCustomerData = document.createElement("div");
   invoiceRowCustomerData.classList.add("d-flex");
   const invoiceCustomerLabels = document.createElement("div");
 
   const invoiceCustomerLabelName = document.createElement("div");
   invoiceCustomerLabelName.innerText = "Nombre";
-  invoiceCustomerLabelName.classList.add("fw-bold");
+  invoiceCustomerLabelName.classList.add("fw-bold", "me-2");
   const invoiceCustomerLabelEmail = document.createElement("div");
-  invoiceCustomerLabelEmail.classList.add("fw-bold");
+  invoiceCustomerLabelEmail.classList.add("fw-bold", "me-2");
   invoiceCustomerLabelEmail.innerText = "Email";
   const invoiceCustomerLabelAddress = document.createElement("div");
-  invoiceCustomerLabelAddress.classList.add("fw-bold");
+  invoiceCustomerLabelAddress.classList.add("fw-bold", "me-2");
   invoiceCustomerLabelAddress.innerText = "Direccion";
   const invoiceCustomerLabelComuna = document.createElement("div");
-  invoiceCustomerLabelComuna.classList.add("fw-bold");
+  invoiceCustomerLabelComuna.classList.add("fw-bold", "me-2");
   invoiceCustomerLabelComuna.innerText = "Comuna";
   const invoiceCustomerLabelRegion = document.createElement("div");
-  invoiceCustomerLabelRegion.classList.add("fw-bold");
+  invoiceCustomerLabelRegion.classList.add("fw-bold", "me-2");
   invoiceCustomerLabelRegion.innerText = "Region";
 
   const invoiceCustomerData = document.createElement("div");
@@ -96,21 +120,25 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   DOMinvoice.classList.add("mx-auto", "w-75");
   DOMinvoice.innerText = "";
   DOMinvoice.appendChild(invoiceContainer);
+  invoiceContainer.appendChild(invoiceMainTitle);
+  invoiceContainer.appendChild(invoiceMainMessage);
+  invoiceContainer.appendChild(invoiceTitleProducts);
   invoiceContainer.appendChild(invoiceRowProducts);
   products.forEach((product) => {
     const invoiceProductCode = document.createElement("div");
-    invoiceProductCode.classList.add("col-1");
+    invoiceProductCode.classList.add("col-2");
     const invoiceProductTitle = document.createElement("div");
-    invoiceProductTitle.classList.add("col-3");
+    invoiceProductTitle.classList.add("col-4");
     const invoiceProductQuantity = document.createElement("div");
-    invoiceProductQuantity.classList.add("col-4");
+    invoiceProductQuantity.classList.add("col-3");
     const invoiceProductPrice = document.createElement("div");
-    invoiceProductPrice.classList.add("col-4");
+    invoiceProductPrice.classList.add("col-3", "p-0");
 
     invoiceProductCode.innerText = `ID${product.codeBook}`;
     invoiceProductTitle.innerText = product.titleBook;
     invoiceProductQuantity.innerText = product.quantity;
-    invoiceProductPrice.innerText = product.price;
+    invoiceProductPrice.innerText =
+      "$" + Intl.NumberFormat("es-CL").format(product.price);
 
     invoiceRowProducts.appendChild(invoiceProductCode);
     invoiceRowProducts.appendChild(invoiceProductTitle);
