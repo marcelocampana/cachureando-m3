@@ -3,7 +3,7 @@ Proyecto del modulo 3 del bootcamp de  javascript
 
 Integrantes: 
 - Marcelo Campaña
-- Carlos Vazques
+- Carlos Vasquez
 - Kathy Canales
 - José Ortega
 
