@@ -229,10 +229,13 @@ function displayTotals(values) {
 
 /* ---------------- BOLETA--------------------------------- */
 //------------Formulario para boleta ----------------------
-
+function prueba(e){
+  console.log("hola")
+}
 // Form
 const form = document.createElement("form");
-form.setAttribute("action", "#")
+form.removeAttribute("autofocus")
+// form.setAttribute("submit", "prueba(e)")
 //Div inicial
 const initialContainer = document.createElement("div");
 initialContainer.innerText = "Ingresa tu email";
@@ -293,7 +296,7 @@ inputEmail.setAttribute("required", "true");
 inputEmail.setAttribute("type", "email");
 // button
 const buttonEmail = document.createElement("button");
-// buttonEmail.setAttribute("onclick", "cartAction(0,0)");
+buttonEmail.setAttribute("onclick", "cartAction(0,0)");
 buttonEmail.setAttribute("type", "submit");
 buttonEmail.classList.add("btn", "btn-primary");
 buttonEmail.innerText = "Enviar";
