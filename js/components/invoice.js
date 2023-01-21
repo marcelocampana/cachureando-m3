@@ -56,7 +56,29 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceBankAccountNumber.innerText = "999-786-3410";
   const invoiceBankAccountName = document.createElement("div");
   invoiceBankAccountName.innerText = "Banco de Chile";
+  const invoiceMainTitlecustomer = document.createElement("h4");
+  invoiceMainTitlecustomer.innerText = "Datos para el envio";
   const invoiceRowCustomerData = document.createElement("div");
+  invoiceRowCustomerData.classList.add("d-flex");
+  const invoiceCustomerLabels = document.createElement("div");
+
+  const invoiceCustomerLabelName = document.createElement("div");
+  invoiceCustomerLabelName.innerText = "Nombre";
+  invoiceCustomerLabelName.classList.add("fw-bold");
+  const invoiceCustomerLabelEmail = document.createElement("div");
+  invoiceCustomerLabelEmail.classList.add("fw-bold");
+  invoiceCustomerLabelEmail.innerText = "Email";
+  const invoiceCustomerLabelAddress = document.createElement("div");
+  invoiceCustomerLabelAddress.classList.add("fw-bold");
+  invoiceCustomerLabelAddress.innerText = "Direccion";
+  const invoiceCustomerLabelComuna = document.createElement("div");
+  invoiceCustomerLabelComuna.classList.add("fw-bold");
+  invoiceCustomerLabelComuna.innerText = "Comuna";
+  const invoiceCustomerLabelRegion = document.createElement("div");
+  invoiceCustomerLabelRegion.classList.add("fw-bold");
+  invoiceCustomerLabelRegion.innerText = "Region";
+
+  const invoiceCustomerData = document.createElement("div");
   const invoiceCustomerName = document.createElement("div");
   invoiceCustomerName.innerText = customerData.customerName;
   const invoiceCustomerEmail = document.createElement("div");
@@ -68,7 +90,7 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceCustomerRegion = document.createElement("div");
   invoiceCustomerRegion.innerText = customerData.customerRegion;
 
-  //agrgando datos al DOM
+  //agregando datos al DOM
 
   const DOMinvoice = document.getElementById("invoice");
   DOMinvoice.classList.add("mx-auto", "w-75");
@@ -106,12 +128,21 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceRowTotalsTotals.appendChild(invoiceDelivery);
   invoiceRowTotalsTotals.appendChild(invoiceIva);
   invoiceRowTotalsTotals.appendChild(invoiceTotal);
+  invoiceContainer.appendChild(invoiceMainTitlecustomer);
   invoiceContainer.appendChild(invoiceRowCustomerData);
-  invoiceRowCustomerData.appendChild(invoiceCustomerName);
-  invoiceRowCustomerData.appendChild(invoiceCustomerEmail);
-  invoiceRowCustomerData.appendChild(invoiceCustomerAddress);
-  invoiceRowCustomerData.appendChild(invoiceCustomerComuna);
-  invoiceRowCustomerData.appendChild(invoiceCustomerRegion);
+  invoiceRowCustomerData.appendChild(invoiceCustomerLabels);
+  invoiceCustomerLabels.appendChild(invoiceCustomerLabelName);
+  invoiceCustomerLabels.appendChild(invoiceCustomerLabelEmail);
+  invoiceCustomerLabels.appendChild(invoiceCustomerLabelAddress);
+  invoiceCustomerLabels.appendChild(invoiceCustomerLabelComuna);
+  invoiceCustomerLabels.appendChild(invoiceCustomerLabelRegion);
+  invoiceRowCustomerData.appendChild(invoiceCustomerData);
+
+  invoiceCustomerData.appendChild(invoiceCustomerName);
+  invoiceCustomerData.appendChild(invoiceCustomerEmail);
+  invoiceCustomerData.appendChild(invoiceCustomerAddress);
+  invoiceCustomerData.appendChild(invoiceCustomerComuna);
+  invoiceCustomerData.appendChild(invoiceCustomerRegion);
   invoiceContainer.appendChild(invoiceRowBankAccount);
   invoiceRowBankAccount.appendChild(invoiceBankAccountNumber);
   invoiceRowBankAccount.appendChild(invoiceBankAccountName);
