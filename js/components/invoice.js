@@ -67,7 +67,18 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceTitleBankAccount.innerText = "Datos para el pago";
   invoiceTitleBankAccount.classList.add("mt-5");
   const invoiceRowBankAccount = document.createElement("div");
+
   const invoiceBankAccountAccountLabels = document.createElement("div");
+  const invoiceBankAccountNameLabel = document.createElement("div");
+  invoiceBankAccountNameLabel.classList.add("fw-bold");
+  invoiceBankAccountNameLabel.innerHTML = "Cuenta corriente";
+  const invoiceBankAccountBankLabel = document.createElement("div");
+  invoiceBankAccountBankLabel.classList.add("fw-bold");
+  invoiceBankAccountBankLabel.innerHTML = "Banco";
+  const invoiceBankAccountEmailLabel = document.createElement("div");
+  invoiceBankAccountEmailLabel.classList.add("fw-bold");
+  invoiceBankAccountNameLabel.innerHTML = "Email";
+
   const invoiceBankAccountAccountName = document.createElement("div");
   invoiceBankAccountAccountName.innerHTML = "Cachureando Books";
   const invoiceBankAccountAccountNumber = document.createElement("div");
