@@ -136,6 +136,7 @@ function cartAction(codeBook, action) {
     }
   } else {
     createModal();
+
   }
 
   cartWrap.textContent = "";
@@ -230,14 +231,18 @@ function displayTotals(values) {
 //------------Formulario para boleta ----------------------
 
 // Form
-const form = document.createElement("div");
+const form = document.createElement("form");
+form.setAttribute("action", "#")
 //Div inicial
 const initialContainer = document.createElement("div");
 initialContainer.innerText = "Ingresa tu email";
 initialContainer.classList.add("col-6", "d-flex", "justify-content-center");
 // titulo
-const tittleEmail = document.createElement("h1");
-tittleEmail.classList.add("col-6");
+const divTitle = document.createElement("div");
+divTitle.classList.add("mb-4");
+const tittleEmail = document.createElement("h4");
+tittleEmail.innerText = "Datos para el envio";
+tittleEmail.classList.add("col-6", "d-flex" , "justify-content-center");
 
 //  direccion -
 const divDireccion = document.createElement("div");
@@ -246,6 +251,7 @@ const inputDirecccion = document.createElement("input");
 inputDirecccion.setAttribute("id", "customer-address");
 inputDirecccion.classList.add("form-control");
 inputDirecccion.setAttribute("placeholder", "Ingresa tu direccion");
+inputDirecccion.setAttribute("required", "true");
 
 // comuna-
 const divComuna = document.createElement("div");
@@ -254,6 +260,7 @@ const inputComuna = document.createElement("input");
 inputComuna.setAttribute("id", "customer-comuna");
 inputComuna.classList.add("form-control");
 inputComuna.setAttribute("placeholder", "Ingresa tu comuna");
+inputComuna.setAttribute("required", "true");
 // region-
 const divRegion = document.createElement("div");
 divRegion.classList.add("mb-3");
@@ -261,6 +268,7 @@ const inputRegion = document.createElement("input");
 inputRegion.setAttribute("id", "customer-region");
 inputRegion.classList.add("form-control");
 inputRegion.setAttribute("placeholder", "Ingresa tu region");
+inputRegion.setAttribute("required", "true");
 
 // nombre receptor-
 const divNombre = document.createElement("div");
@@ -271,6 +279,7 @@ inputNombre.attributes.required = "required";
 inputNombre.setAttribute("id", "customer-name");
 inputNombre.classList.add("form-control");
 inputNombre.setAttribute("placeholder", "Ingresa tu nombre");
+inputNombre.setAttribute("required", "true");
 
 // Correo electronico
 const divEmail = document.createElement("div");
@@ -280,25 +289,29 @@ const inputEmail = document.createElement("input");
 inputEmail.setAttribute("id", "customer-email");
 inputEmail.classList.add("form-control", "type=email");
 inputEmail.setAttribute("placeholder", "Ingresa tu email");
+inputEmail.setAttribute("required", "true");
+inputEmail.setAttribute("type", "email");
 // button
 const buttonEmail = document.createElement("button");
-buttonEmail.setAttribute("onclick", "cartAction(0,0)");
+// buttonEmail.setAttribute("onclick", "cartAction(0,0)");
+buttonEmail.setAttribute("type", "submit");
 buttonEmail.classList.add("btn", "btn-primary");
 buttonEmail.innerText = "Enviar";
 
 //Agregando elementos al DOM
 
-form.appendChild(tittleEmail);
+form.appendChild(divTitle);
+divTitle.appendChild(tittleEmail)
+form.appendChild(divNombre);
+divNombre.appendChild(inputNombre);
+form.appendChild(divEmail);
+divEmail.appendChild(inputEmail);
 form.appendChild(divDireccion);
 divDireccion.appendChild(inputDirecccion);
 form.appendChild(divComuna);
 divComuna.appendChild(inputComuna);
 form.appendChild(divRegion);
 divRegion.appendChild(inputRegion);
-form.appendChild(divNombre);
-divNombre.appendChild(inputNombre);
-form.appendChild(divEmail);
-divEmail.appendChild(inputEmail);
 form.appendChild(buttonEmail);
 
 // -----------------MODAL------------------------------------
