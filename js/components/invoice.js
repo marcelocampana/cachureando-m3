@@ -4,7 +4,7 @@ function fetchDataforInvoice(array) {
   array.map((product) => {
     productsIntoCart.push(product);
     values.push(product.price * product.quantity);
-
+    console.log(values);
     createInvoice(
       productsIntoCart,
       displayTotals(values).neto,
@@ -16,9 +16,30 @@ function fetchDataforInvoice(array) {
   });
 }
 
+function fetchCustomerData() {
+  const customerName = document.getElementById("customer-name").value;
+  const customerEmail = document.getElementById("customer-email").value;
+  const customerComuna = document.getElementById("customer-comuna").value;
+  const customerAddress = document.getElementById("customer-address").value;
+  const customerRegion = document.getElementById("customer-region").value;
+
+  const customerData = {
+    customerName,
+    customerEmail,
+    customerComuna,
+    customerAddress,
+    customerRegion,
+  };
+
+  console.log(customerData);
+  return customerData;
+}
+
 function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceContainer = document.createElement("div");
   invoiceContainer.classList.add("border", "p-5");
+
+  //Creando Encabezado
   const invoiceMainTitle = document.createElement("h1");
   const cutName = customerData.customerName.split(" ");
   var firstName = cutName[0];
@@ -26,20 +47,21 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceMainMessage = document.createElement("h5");
   invoiceMainMessage.classList.add("mb-3");
   invoiceMainMessage.innerText = `Hemos enviado una copia de tu boleta al correo electronico ${customerData.customerEmail} `;
+  //Creando Productos
   const invoiceTitleProducts = document.createElement("h4");
   invoiceTitleProducts.innerText = "Productos solicitados";
   invoiceTitleProducts.classList.add("mt-5");
   const invoiceRowProducts = document.createElement("div");
   invoiceRowProducts.classList.add("row", "pb-3");
-
+  //Creando totales
   const invoiceRowTotals = document.createElement("div");
   invoiceRowTotals.classList.add("d-flex", "justify-content-end");
+  //Totales Etiquetas
   const invoiceRowTotalsLabels = document.createElement("div");
   invoiceRowTotalsLabels.classList.add("col-3");
   const invoiceLabelNeto = document.createElement("div");
   invoiceLabelNeto.classList.add("fw-bold");
   invoiceLabelNeto.innerText = "Neto";
-
   const invoiceLabelDelivery = document.createElement("div");
   invoiceLabelDelivery.classList.add("fw-bold");
   invoiceLabelDelivery.innerText = "Cargo por envío";
@@ -63,40 +85,15 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceTotal = document.createElement("div");
   invoiceTotal.classList.add("ps-1");
   invoiceTotal.innerText = "$" + Intl.NumberFormat("es-CL").format(total);
-  const invoiceTitleBankAccount = document.createElement("h4");
-  invoiceTitleBankAccount.innerText = "Datos para el pago";
-  invoiceTitleBankAccount.classList.add("mt-5");
-  const invoiceRowBankAccount = document.createElement("div");
 
-  const invoiceBankAccountAccountLabels = document.createElement("div");
-  const invoiceBankAccountNameLabel = document.createElement("div");
-  invoiceBankAccountNameLabel.classList.add("fw-bold");
-  invoiceBankAccountNameLabel.innerHTML = "Cuenta corriente";
-  const invoiceBankAccountBankLabel = document.createElement("div");
-  invoiceBankAccountBankLabel.classList.add("fw-bold");
-  invoiceBankAccountBankLabel.innerHTML = "Banco";
-  const invoiceBankAccountEmailLabel = document.createElement("div");
-  invoiceBankAccountEmailLabel.classList.add("fw-bold");
-  invoiceBankAccountNameLabel.innerHTML = "Email";
-
-  const invoiceBankAccountAccountName = document.createElement("div");
-  invoiceBankAccountAccountName.innerHTML = "Cachureando Books";
-  const invoiceBankAccountAccountNumber = document.createElement("div");
-  const invoiceBankAccountAccountEmail = document.createElement("div");
-  const invoiceBankAccountAccountData = document.createElement("div");
-  const invoiceBankAccountNumber = document.createElement("div");
-  invoiceBankAccountNumber.innerText = "999-786-3410";
-  const invoiceBankAccountName = document.createElement("div");
-  invoiceBankAccountName.innerText = "Banco de Chile";
-  const invoiceBankAccountEmail = document.createElement("div");
-  invoiceBankAccountEmail.innerText = "pagos@cachureando.cl";
-  const invoiceMainTitlecustomer = document.createElement("h4");
-  invoiceMainTitlecustomer.innerText = "Datos para el envio";
-  invoiceMainTitlecustomer.classList.add("mt-4");
+  //Creando Datos del cliente
+  const invoiceMainTitleCustomer = document.createElement("h4");
+  invoiceMainTitleCustomer.innerText = "Datos para el envio";
+  invoiceMainTitleCustomer.classList.add("mt-4");
   const invoiceRowCustomerData = document.createElement("div");
   invoiceRowCustomerData.classList.add("d-flex");
+  //Creando Datos del cliente - Etiquetas
   const invoiceCustomerLabels = document.createElement("div");
-
   const invoiceCustomerLabelName = document.createElement("div");
   invoiceCustomerLabelName.innerText = "Nombre";
   invoiceCustomerLabelName.classList.add("fw-bold", "me-2");
@@ -112,7 +109,7 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceCustomerLabelRegion = document.createElement("div");
   invoiceCustomerLabelRegion.classList.add("fw-bold", "me-2");
   invoiceCustomerLabelRegion.innerText = "Region";
-
+  //Creando Datos del cliente - Datos
   const invoiceCustomerData = document.createElement("div");
   const invoiceCustomerName = document.createElement("div");
   invoiceCustomerName.innerText = customerData.customerName;
@@ -125,8 +122,39 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceCustomerRegion = document.createElement("div");
   invoiceCustomerRegion.innerText = customerData.customerRegion;
 
-  //agregando datos al DOM
+  //Creando Datos Bancarios
+  //Creando Datos Bancarios - Encabezado
+  const invoiceTitleBank = document.createElement("h4");
+  invoiceTitleBank.innerText = "Datos para el pago";
+  invoiceTitleBank.classList.add("mt-5");
+  const invoiceRowBank = document.createElement("div");
+  invoiceRowBank.classList.add("d-flex");
+  //Creando Datos Bancarios - Etiquetas
+  const invoiceBankLabels = document.createElement("div");
+  const invoiceBankAccountLabel = document.createElement("div");
+  invoiceBankAccountLabel.classList.add("fw-bold", "me-2");
+  invoiceBankAccountLabel.innerHTML = "Cuenta corriente";
+  const invoiceBankBankLabel = document.createElement("div");
+  invoiceBankBankLabel.classList.add("fw-bold", "me-2");
+  invoiceBankBankLabel.innerHTML = "Banco";
+  const invoiceBankNameLabel = document.createElement("div");
+  invoiceBankNameLabel.classList.add("fw-bold", "me-2");
+  invoiceBankNameLabel.innerHTML = "A nombre de";
+  const invoiceBankEmailLabel = document.createElement("div");
+  invoiceBankEmailLabel.classList.add("fw-bold", "me-2");
+  invoiceBankEmailLabel.innerHTML = "Email";
+  //Creando Datos Bancarios - Data
+  const invoiceBankData = document.createElement("div");
+  const invoiceBankAccount = document.createElement("div");
+  invoiceBankAccount.innerText = "999-786-3410";
+  const invoiceBankBank = document.createElement("div");
+  invoiceBankBank.innerText = "Banco de Chile";
+  const invoiceBankName = document.createElement("div");
+  invoiceBankName.innerHTML = "Cachureando Books";
+  const invoiceBankEmail = document.createElement("div");
+  invoiceBankEmail.innerText = "pagos@cachureando.cl";
 
+  // -------Agregando datos al DOM  ------------
   const DOMinvoice = document.getElementById("invoice");
   DOMinvoice.classList.add("mx-auto", "w-75");
   DOMinvoice.innerText = "";
@@ -135,6 +163,8 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceContainer.appendChild(invoiceMainMessage);
   invoiceContainer.appendChild(invoiceTitleProducts);
   invoiceContainer.appendChild(invoiceRowProducts);
+
+  //Agregando Productos
   products.forEach((product) => {
     const invoiceProductCode = document.createElement("div");
     invoiceProductCode.classList.add("col-2");
@@ -156,6 +186,8 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
     invoiceRowProducts.appendChild(invoiceProductQuantity);
     invoiceRowProducts.appendChild(invoiceProductPrice);
   });
+
+  //Agregando Totales
   invoiceContainer.appendChild(invoiceRowTotals);
   invoiceRowTotals.appendChild(invoiceRowTotalsLabels);
   invoiceRowTotalsLabels.appendChild(invoiceLabelNeto);
@@ -167,7 +199,9 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceRowTotalsTotals.appendChild(invoiceDelivery);
   invoiceRowTotalsTotals.appendChild(invoiceIva);
   invoiceRowTotalsTotals.appendChild(invoiceTotal);
-  invoiceContainer.appendChild(invoiceMainTitlecustomer);
+  invoiceContainer.appendChild(invoiceMainTitleCustomer);
+
+  //Agregando Datos del cliente
   invoiceContainer.appendChild(invoiceRowCustomerData);
   invoiceRowCustomerData.appendChild(invoiceCustomerLabels);
   invoiceCustomerLabels.appendChild(invoiceCustomerLabelName);
@@ -176,34 +210,37 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceCustomerLabels.appendChild(invoiceCustomerLabelComuna);
   invoiceCustomerLabels.appendChild(invoiceCustomerLabelRegion);
   invoiceRowCustomerData.appendChild(invoiceCustomerData);
-
   invoiceCustomerData.appendChild(invoiceCustomerName);
   invoiceCustomerData.appendChild(invoiceCustomerEmail);
   invoiceCustomerData.appendChild(invoiceCustomerAddress);
   invoiceCustomerData.appendChild(invoiceCustomerComuna);
   invoiceCustomerData.appendChild(invoiceCustomerRegion);
-  invoiceContainer.appendChild(invoiceRowBankAccount);
-  invoiceRowBankAccount.appendChild(invoiceBankAccountNumber);
-  invoiceRowBankAccount.appendChild(invoiceBankAccountName);
+
+  //Agregando Cuenta bancaria
+  invoiceContainer.appendChild(invoiceTitleBank);
+  invoiceContainer.appendChild(invoiceRowBank);
+  invoiceRowBank.appendChild(invoiceBankLabels);
+  invoiceBankLabels.appendChild(invoiceBankAccountLabel);
+  invoiceBankLabels.appendChild(invoiceBankBankLabel);
+  invoiceBankLabels.appendChild(invoiceBankNameLabel);
+  invoiceBankLabels.appendChild(invoiceBankEmailLabel);
+  invoiceRowBank.appendChild(invoiceBankData);
+  invoiceBankData.appendChild(invoiceBankAccount);
+  invoiceBankData.appendChild(invoiceBankBank);
+  invoiceBankData.appendChild(invoiceBankName);
+  invoiceBankData.appendChild(invoiceBankEmail);
+
+  //ocultando otras areas
+  const totalsSectionId = document.getElementById("totals-section");
+  totalsSectionId.classList.add("d-none");
+  const cartSectionId = document.getElementById("cart-section");
+  cartSectionId.classList.add("d-none");
+  const cartMainTitle = document.getElementById("cart-main-title");
+  cartMainTitle.classList.add("d-none");
+  const staticBackdrop = document.getElementById("staticBackdrop");
+  staticBackdrop.classList.add("d-none");
+  const buttonModal = document.getElementById("button-modal");
+  buttonModal.classList.add("d-none");
+  const visible = document.getElementsByClassName("modal-backdrop");
+  visible && visible[0].classList.remove("modal-backdrop");
 }
-
-function fetchCustomerData() {
-  const customerName = document.getElementById("customer-name").value;
-  const customerEmail = document.getElementById("customer-email").value;
-  const customerComuna = document.getElementById("customer-comuna").value;
-  const customerAddress = document.getElementById("customer-address").value;
-  const customerRegion = document.getElementById("customer-region").value;
-
-  const customerData = {
-    customerName,
-    customerEmail,
-    customerComuna,
-    customerAddress,
-    customerRegion,
-  };
-
-  return customerData;
-}
-
-document.getElementById("store-data") &&
-  console.log(document.getElementById("store-data").value);

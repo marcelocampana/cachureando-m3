@@ -1,80 +1,22 @@
+/* ------------CARRITO DE COMPRA----------------------------------- */
+
+const detailMainTitleWrap = document.getElementById("product-cart-title");
 const detailMainTitle = document.createElement("h2");
-detailMainTitle.setAttribute("id", "cart-main-title");
-detailMainTitle.innerText = "Carrito de compra";
-const cartSection = document.createElement("div");
-cartSection.setAttribute("id", "cart-section");
-const totalsSection = document.createElement("div");
-totalsSection.setAttribute("id", "totals-section");
-const shippingSection = document.createElement("div");
+detailMainTitle.innerText = "Carrito";
+detailMainTitleWrap.appendChild(detailMainTitle);
 
-function cartAction(codeBook, action) {
-  cartSection.innerHTML = "";
-  totalsSection.innerHTML = "";
+function createProductCart(code, title, imageUrl, price, quantity) {
+  //Container de cada producto agregado al carrito(este elemento contiene el #id )
 
-  DOMcart.appendChild(detailMainTitle);
-  DOMcart.appendChild(cartSection);
-  DOMcart.appendChild(totalsSection);
-  DOMcart.appendChild(shippingSection);
-
-  const quantity = document.getElementById("quantity").value;
-  action === "add" && addToCart(codeBook, quantity);
-  action === "delete" && deleteFromCart(codeBook);
-  console.log(arrayCart);
-  action == "ship" && fetchDataforInvoice(arrayCart);
-  action == "ship" && fetchCustomerData();
-
-  const values = [];
-  arrayCart.forEach((product) => {
-    updateCart(
-      product.codeBook,
-      product.titleBook,
-      product.cover,
-      product.price,
-      product.quantity
-    );
-    values.push(product.price * product.quantity);
-    displayTotals(values);
-  });
-}
-
-function addToCart(codeBook, quantity) {
-  const cart = productsData.filter((product) => product.codeBook == codeBook);
-  arrayCart.push({ ...cart[0], quantity });
-}
-
-function deleteFromCart(codeBook) {
-  arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
-}
-
-function displayTotals(values) {
-  let initialValue = 0;
-  let total;
-  if (values !== []) {
-    total = values.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      initialValue
-    );
-  }
-  const neto = Math.round(total / 1.19);
-  const delivery = total < 100000 ? Math.round((neto * 0.5) / 10) : 0;
-  const iva = Math.round(((neto + delivery) * 19) / 100);
-
-  invoiceTotals = {
-    neto,
-    delivery,
-    iva,
-    total,
-  };
-
-  //cartWrap.textContent = "";
-  updateTotalsArea(neto, delivery, iva, total);
-
-  return invoiceTotals;
-}
-
-function updateCart(code, title, imageUrl, price, quantity) {
+  cartWrap.classList.add("container", "h-100", "py-1");
   const cartContainer = document.createElement("div");
-  const cartWrap = document.createElement("div");
+  cartContainer.classList.add(
+    "row",
+    "d-flex",
+    "justify-content-center",
+    "align-items-center",
+    "h-100"
+  );
   //contruyendo la card de cada producto del carrito
   const cartCard = document.createElement("div");
   cartCard.classList.add("card", "rounded-3", "mb-1");
@@ -143,7 +85,8 @@ function updateCart(code, title, imageUrl, price, quantity) {
 
   //
   //Agregando elementos al DOM
-  cartSection.appendChild(cartContainer);
+  DOMcart.appendChild(cartContainer);
+
   cartContainer.appendChild(cartWrap);
   cartWrap.appendChild(cartCard);
   cartCard.appendChild(cartCardBody);
@@ -163,9 +106,57 @@ function updateCart(code, title, imageUrl, price, quantity) {
   showStoreComponent("product-cart");
 }
 
-function updateTotalsArea(neto, discount, iva, total) {
-  totalsSection.innerHTML = "";
+//Agregar/eliminar producto al carrito
+function cartAction(codeBook, action) {
+  const msg = document.createElement("h1");
+  msg.style.height = "200px";
 
+  const cartState = document.getElementById("product-cart-msg");
+  cartState.classList.add("text-center", "pt-5");
+  const quantity = document.getElementById("quantity").value;
+  const values = [];
+  if (action === "add") {
+    const cart = productsData.filter((product) => product.codeBook == codeBook);
+    arrayCart.push({ ...cart[0], quantity });
+
+    createModal();
+    cartState.textContent = "";
+  }
+  if (action === "delete") {
+    arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
+
+    DomTotalsArea.textContent = "";
+    if (arrayCart.length === 0) {
+      DOMmodal.innerHTML = "";
+      msg.classList.add("p-5");
+      msg.innerText = "El carrito está vacío :(";
+      cartState.appendChild(msg);
+    } else {
+      createModal();
+    }
+  } else {
+    createModal();
+  }
+
+  cartWrap.textContent = "";
+  arrayCart.forEach((product) => {
+    action == "0" && fetchDataforInvoice(arrayCart);
+    action == "0" && fetchCustomerData();
+    createProductCart(
+      product.codeBook,
+      product.titleBook,
+      product.cover,
+      product.price,
+      product.quantity
+    );
+    values.push(product.price * product.quantity);
+    displayTotals(values);
+  });
+}
+
+//-------TOTALES----------------
+
+function totalsArea(neto, discount, iva, total) {
   const totalsContainer = document.createElement("div");
   totalsContainer.classList.add("d-flex", "justify-content-end", "p-5");
   const totalsLabelsContainer = document.createElement("div");
@@ -193,7 +184,8 @@ function updateTotalsArea(neto, discount, iva, total) {
 
   //Agregando elementos al DOM
 
-  totalsSection.appendChild(totalsContainer);
+  DomTotalsArea.appendChild(totalsContainer);
+
   totalsContainer.appendChild(totalsLabelsContainer);
   totalsLabelsContainer.appendChild(totalsLabelNeto);
   totalsLabelsContainer.appendChild(totalsLabelDelivery);
@@ -205,4 +197,31 @@ function updateTotalsArea(neto, discount, iva, total) {
   totalsValuesContainer.appendChild(totalsDelivery);
   totalsValuesContainer.appendChild(totalsIVA);
   totalsValuesContainer.appendChild(totalsTotal);
+}
+
+//Obtener la sumatoria del total de cada producto agregado al carrito y entonces calcular el neto costo de despacho, iva  y total
+function displayTotals(values) {
+  let initialValue = 0;
+  let total;
+  if (values !== []) {
+    total = values.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+  }
+  const neto = Math.round(total / 1.19);
+  const delivery = total < 100000 ? Math.round((neto * 0.5) / 10) : 0;
+  const iva = Math.round(((neto + delivery) * 19) / 100);
+
+  invoiceTotals = {
+    neto,
+    delivery,
+    iva,
+    total,
+  };
+
+  DomTotalsArea.textContent = "";
+  totalsArea(neto, delivery, iva, total);
+
+  return invoiceTotals;
 }
