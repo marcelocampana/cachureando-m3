@@ -19,22 +19,27 @@ function cartAction(codeBook, action) {
   const quantity = document.getElementById("quantity").value;
   action === "add" && addToCart(codeBook, quantity);
   action === "delete" && deleteFromCart(codeBook);
-  console.log(arrayCart);
   action == "ship" && fetchDataforInvoice(arrayCart);
   action == "ship" && fetchCustomerData();
+  //  action == "ship" && sendMail();
 
   const values = [];
-  arrayCart.forEach((product) => {
-    updateCart(
-      product.codeBook,
-      product.titleBook,
-      product.cover,
-      product.price,
-      product.quantity
-    );
-    values.push(product.price * product.quantity);
-    displayTotals(values);
-  });
+  const quantities = [];
+  arrayCart.length === 0
+    ? emptyCart()
+    : arrayCart.forEach((product) => {
+        updateCart(
+          product.codeBook,
+          product.titleBook,
+          product.cover,
+          product.price,
+          product.quantity
+        );
+        values.push(product.price * product.quantity);
+        displayTotals(values);
+        quantities.push(parseInt(product.quantity));
+        productsInCart(quantities);
+      });
 }
 
 function addToCart(codeBook, quantity) {
@@ -44,6 +49,38 @@ function addToCart(codeBook, quantity) {
 
 function deleteFromCart(codeBook) {
   arrayCart = arrayCart.filter((product) => product.codeBook != codeBook);
+}
+function emptyCart() {
+  const emptyCartContainer = document.createElement("div");
+  emptyCartContainer.classList.add("my-5", "text-center");
+  const emptyCartMessage = document.createElement("div");
+  const goToStore = document.createElement("a");
+  goToStore.href = "/index.html";
+  const totalProducts = document.getElementById("products-in-cart");
+  totalProducts.innerText = 0;
+
+  goToStore.innerText = "Vuelve a la tienda para descubrir más productos!";
+  emptyCartMessage.textContent = "El carrito está vacío :(";
+  emptyCartMessage.classList.add("fs-3", "pt-5");
+  cartSection.appendChild(emptyCartContainer);
+  emptyCartContainer.appendChild(emptyCartMessage);
+  emptyCartContainer.appendChild(goToStore);
+}
+
+function productsInCart(values) {
+  console.log(values);
+  let initialValue = 0;
+  let total;
+  if (values !== []) {
+    total = values.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+  }
+  console.log(values.length);
+
+  const totalProducts = document.getElementById("products-in-cart");
+  if (totalProducts) totalProducts.innerText = total;
 }
 
 function displayTotals(values) {
@@ -104,7 +141,7 @@ function updateCart(code, title, imageUrl, price, quantity) {
   const cartQuantityCol = document.createElement("div");
   cartQuantityCol.classList.add("col-1", "d-flex");
   const cartQuantity = document.createElement("div");
-  cartQuantity.innerText = quantity;
+  cartQuantity.innerText = `${quantity} ${quantity == 1 ? "und." : "unds."}`;
   //Precio
   const cartPriceCol = document.createElement("div");
   cartPriceCol.classList.add("col-2", "offset-1");

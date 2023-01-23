@@ -1,10 +1,12 @@
 function fetchDataforInvoice(array) {
   let productsIntoCart = [];
+
   let values = [];
-  array.map((product) => {
+  array.forEach((product) => {
     productsIntoCart.push(product);
     values.push(product.price * product.quantity);
     console.log(values);
+
     createInvoice(
       productsIntoCart,
       displayTotals(values).neto,
@@ -154,6 +156,14 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceBankEmail = document.createElement("div");
   invoiceBankEmail.innerText = "pagos@cachureando.cl";
 
+  //Creando enlace para volver a la tienda
+  const footerInvoice = document.createElement("div");
+  footerInvoice.classList.add("text-center", "w-100", "mt-4");
+  const goToHome = document.createElement("a");
+  goToHome.classList.add("pt-5");
+  goToHome.href = "/index.html";
+  goToHome.innerText = "Volver a la tienda";
+
   // -------Agregando datos al DOM  ------------
   const DOMinvoice = document.getElementById("invoice");
   DOMinvoice.classList.add("mx-auto", "w-75");
@@ -229,7 +239,21 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   invoiceBankData.appendChild(invoiceBankBank);
   invoiceBankData.appendChild(invoiceBankName);
   invoiceBankData.appendChild(invoiceBankEmail);
-
+  //agregando enlace
+  invoiceContainer.appendChild(footerInvoice);
+  footerInvoice.appendChild(goToHome);
+  sendMail(
+    products,
+    customerData.customerName,
+    customerData.customerEmail,
+    customerData.customerAddress,
+    customerData.customerComuna,
+    customerData.customerRegion,
+    neto,
+    delivery,
+    iva,
+    total
+  );
   //ocultando otras areas
   const totalsSectionId = document.getElementById("totals-section");
   totalsSectionId.classList.add("d-none");
@@ -242,5 +266,9 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const buttonModal = document.getElementById("button-modal");
   buttonModal.classList.add("d-none");
   const visible = document.getElementsByClassName("modal-backdrop");
-  visible && visible[0].classList.remove("modal-backdrop");
+  // visible && visible[0].classList.remove("modal-backdrop");
+  const layoutNav = document.getElementById("nav");
+  layoutNav.innerHTML = "";
+  const layoutFooter = document.getElementById("layout-footer");
+  layoutFooter.innerHTML = "";
 }
