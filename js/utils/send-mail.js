@@ -14,13 +14,17 @@ function sendMail(
   let cart = products
     .map(
       (product) =>
-        `<div>${product.quantity} ${product.titleBook}(Codigo ID${product.codeBook}) - ${product.price}c/u</div>`
+        `<div>${product.quantity} ${product.titleBook}(Codigo ID${
+          product.codeBook
+        }) - ${
+          "$" + Intl.NumberFormat("es-CL").format(parseInt(product.price))
+        }c/u</div>`
     )
     .join("");
   console.log(cart);
   const emailMessage = `<div>
       <h3>Gracias ${name}!</h3>
-      <h5>Estos son los datos de tu compra en Chachurando Books</h5>
+      <h5>Estos son los datos de tu compra en Cachureando Books</h5>
       <h4>Productos solicitados</h4>
       <div>
 ${cart}

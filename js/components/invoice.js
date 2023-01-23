@@ -266,7 +266,7 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   const buttonModal = document.getElementById("button-modal");
   buttonModal.classList.add("d-none");
   const visible = document.getElementsByClassName("modal-backdrop");
-  // visible && visible[0].classList.remove("modal-backdrop");
+  visible && visible[0].classList.remove("modal-backdrop");
   const layoutNav = document.getElementById("nav");
   layoutNav.innerHTML = "";
   const layoutFooter = document.getElementById("layout-footer");

@@ -6,6 +6,7 @@ cartSection.setAttribute("id", "cart-section");
 const totalsSection = document.createElement("div");
 totalsSection.setAttribute("id", "totals-section");
 const shippingSection = document.createElement("div");
+shippingSection.classList.add("d-flex", "justify-content-end");
 
 function cartAction(codeBook, action) {
   cartSection.innerHTML = "";

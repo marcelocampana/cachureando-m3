@@ -87,7 +87,13 @@ form.appendChild(buttonEmail);
 const buttonModal = document.createElement("button");
 buttonModal.classList.add("btn", "btn-primary", "w-25");
 
-buttonModal.textContent = "Completar la Compra";
+const shipBtnBack = document.createElement("button");
+shipBtnBack.setAttribute("type", "button");
+shipBtnBack.setAttribute("onclick", "showStoreComponent('product-grid')");
+shipBtnBack.classList.add("btn", "btn-outline-primary", "me-2");
+shipBtnBack.innerText = "Continuar comprando";
+
+buttonModal.textContent = "Finalizar la Compra";
 buttonModal.setAttribute("type", "button");
 buttonModal.setAttribute("id", "button-modal");
 buttonModal.setAttribute("data-bs-toggle", "modal");
@@ -137,8 +143,8 @@ const buttonSendFooter = document.createElement("button");
 buttonSendFooter.classList.add("btn", "btn-primary");
 buttonSendFooter.textContent = "Enviar";
 
-//Agregando elementos al DOM
-
+//Agregando elementos al DOMshipBtnBack
+shippingSection.appendChild(shipBtnBack);
 shippingSection.appendChild(buttonModal);
 shippingSection.appendChild(divModal);
 divModal.appendChild(divModalDialog);
