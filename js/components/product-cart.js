@@ -56,7 +56,7 @@ function emptyCart() {
   emptyCartContainer.classList.add("my-5", "text-center");
   const emptyCartMessage = document.createElement("div");
   const goToStore = document.createElement("a");
-  goToStore.href = "/index.html";
+  goToStore.href = "index.html";
   const totalProducts = document.getElementById("products-in-cart");
   totalProducts.innerText = 0;
 

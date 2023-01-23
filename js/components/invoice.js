@@ -161,7 +161,7 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
   footerInvoice.classList.add("text-center", "w-100", "mt-4");
   const goToHome = document.createElement("a");
   goToHome.classList.add("pt-5");
-  goToHome.href = "/index.html";
+  goToHome.href = "index.html";
   goToHome.innerText = "Volver a la tienda";
 
   // -------Agregando datos al DOM  ------------
