@@ -39,7 +39,7 @@ function fetchCustomerData() {
 
 function createInvoice(products, neto, iva, delivery, total, customerData) {
   const invoiceContainer = document.createElement("div");
-  invoiceContainer.classList.add("border", "p-5");
+  invoiceContainer.classList.add("border", "p-md-5", "p-1");
 
   //Creando Encabezado
   const invoiceMainTitle = document.createElement("h1");
@@ -166,7 +166,7 @@ function createInvoice(products, neto, iva, delivery, total, customerData) {
 
   // -------Agregando datos al DOM  ------------
   const DOMinvoice = document.getElementById("invoice");
-  DOMinvoice.classList.add("mx-auto", "w-75");
+  DOMinvoice.classList.add("mx-auto", "w-100");
   DOMinvoice.innerText = "";
   DOMinvoice.appendChild(invoiceContainer);
   invoiceContainer.appendChild(invoiceMainTitle);

@@ -127,31 +127,31 @@ function updateCart(code, title, imageUrl, price, quantity) {
   );
   //Imagen
   const cartImageCol = document.createElement("div");
-  cartImageCol.classList.add("col-1");
+  cartImageCol.classList.add("col-md-1", "col-12", "text-center");
   const cartImage = document.createElement("img");
   cartImage.classList.add("img-fluid", "rounded-3");
   cartImage.src = imageUrl;
   cartImage.alt = title;
   //Titulo
   const cartTitleCol = document.createElement("div");
-  cartTitleCol.classList.add("col-2");
+  cartTitleCol.classList.add("col-md-2", "col-12", "mt-md-0", "m-2");
   const cartTitle = document.createElement("div");
   cartTitle.classList.add("lead", "fw-normal");
   cartTitle.innerText = title;
   //Cantidad
   const cartQuantityCol = document.createElement("div");
-  cartQuantityCol.classList.add("col-1", "d-flex");
+  cartQuantityCol.classList.add("col-12", "col-md-1", "d-flex");
   const cartQuantity = document.createElement("div");
   cartQuantity.innerText = `${quantity} ${quantity == 1 ? "und." : "unds."}`;
   //Precio
   const cartPriceCol = document.createElement("div");
-  cartPriceCol.classList.add("col-2", "offset-1");
+  cartPriceCol.classList.add("col-12", "col-md-2", "offset-1");
   const cartPrice = document.createElement("div");
   cartPrice.classList.add("mb-0");
   cartPrice.innerText = "$" + Intl.NumberFormat("es-CL").format(price);
   //Total
   const cartTotalCol = document.createElement("div");
-  cartTotalCol.classList.add("col-2", "offset-1");
+  cartTotalCol.classList.add("col-md-2", "col-12", "offset-1");
   const cartTotal = document.createElement("div");
   cartTotal.classList.add("mb-0");
   cartTotal.innerText =

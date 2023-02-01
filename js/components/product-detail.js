@@ -17,7 +17,12 @@ function createProductDetail(
   detailMainTitle.innerText = mainTitle;
   //Div inicial
   const wrapDetail = document.createElement("div");
-  wrapDetail.classList.add("col-6", "d-flex", "justify-content-center");
+  wrapDetail.classList.add(
+    "col-md-6",
+    "col-12",
+    "d-flex",
+    "justify-content-center"
+  );
   //Imagen
   const imageDetail = document.createElement("img");
   imageDetail.src = imageUrl;
@@ -25,7 +30,7 @@ function createProductDetail(
   imageDetail.classList.add("h-75");
   //Cuerpo
   const bodyDetail = document.createElement("div");
-  bodyDetail.classList.add("col-4", "mx-5");
+  bodyDetail.classList.add("col-12", "col-md-4", "mx-2", "mx-md-5");
   //Titulo
   const detailTitle = document.createElement("h1");
   detailTitle.setAttribute("name", code);
